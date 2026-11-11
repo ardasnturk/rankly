@@ -178,7 +178,7 @@ struct CountriesOverview: View {
                                 Text(o.term).lineLimit(1).frame(maxWidth: .infinity, alignment: .leading)
                                 Text(String(format: "%.0f", o.bestScore)).bold().monospacedDigit()
                                     .frame(width: 80, alignment: .leading)
-                                ScoreBar(value: o.popularity, prefix: "~", tint: .blue).frame(width: 90, alignment: .leading)
+                                PopularityBar(value: o.popularity).frame(width: 90, alignment: .leading)
                                 Text(o.countries.map { Storefronts.byCode($0).flag }.joined(separator: " "))
                                     .lineLimit(1).frame(width: 260, alignment: .leading)
                             }

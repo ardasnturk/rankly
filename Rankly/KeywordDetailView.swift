@@ -4,6 +4,7 @@ import Charts
 
 struct KeywordDetailView: View {
     @Environment(\.modelContext) private var context
+    @Environment(\.appPalette) private var palette
     @EnvironmentObject private var refresher: RankRefresher
     @Query private var trackedApps: [TrackedApp]
     let keyword: Keyword
@@ -22,7 +23,7 @@ struct KeywordDetailView: View {
                 }
                 HStack(spacing: 20) {
                     Stat(title: "Sıra", value: keyword.currentRank.map { "#\($0)" } ?? "—")
-                    Stat(title: "Popülerlik", value: keyword.popularity.map { "~\($0)" } ?? "—", color: .blue)
+                    Stat(title: "Popülerlik", value: keyword.popularity.map { "~\($0)" } ?? "—", color: palette.primary)
                     Stat(title: "Zorluk", value: keyword.difficulty.map(String.init) ?? "—",
                          color: difficultyColor(keyword.difficulty))
                 }
@@ -48,8 +49,11 @@ struct KeywordDetailView: View {
                 Chart(snaps, id: \.date) { s in
                     LineMark(x: .value("Tarih", s.date, unit: .day), y: .value("Sıra", s.rank ?? 0))
                         .interpolationMethod(.monotone)
+                        .lineStyle(StrokeStyle(lineWidth: 2.5, lineCap: .round))
+                        .foregroundStyle(palette.gradient)
                     PointMark(x: .value("Tarih", s.date, unit: .day), y: .value("Sıra", s.rank ?? 0))
-                        .symbolSize(18)
+                        .symbolSize(22)
+                        .foregroundStyle(palette.primary)
                 }
                 .chartYScale(domain: .automatic(includesZero: false, reversed: true))
                 .frame(height: 160)
@@ -88,6 +92,7 @@ struct KeywordDetailView: View {
     }
 
     private func loadRanking() async {
+        if Demo.isOn { return }   // demo never talks to Apple
         loading = true; error = nil
         do {
             let ids = try await AppStoreClient.shared.searchRanking(term: keyword.term, country: keyword.country)

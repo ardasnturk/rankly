@@ -8,6 +8,7 @@ struct Suggestion: Identifiable {
 }
 
 struct SuggestionsView: View {
+    @Environment(\.appPalette) private var palette
     let app: TrackedApp
     let country: String
     var onAdd: ([String]) -> Void
@@ -31,7 +32,7 @@ struct SuggestionsView: View {
                 HStack {
                     Text(s.term).lineLimit(1)
                     Spacer()
-                    Text(s.popularity.map { "~\($0)" } ?? "…").monospacedDigit().foregroundStyle(.blue)
+                    Text(s.popularity.map { "~\($0)" } ?? "…").monospacedDigit().foregroundStyle(palette.primary)
                         .frame(width: 34).help("Popülerlik (tahmini)")
                     Text(s.difficulty.map(String.init) ?? "…").monospacedDigit()
                         .foregroundStyle(difficultyColor(s.difficulty)).frame(width: 28).help("Zorluk")

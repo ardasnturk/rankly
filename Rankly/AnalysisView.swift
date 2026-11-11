@@ -3,6 +3,7 @@ import SwiftData
 
 struct AnalysisView: View {
     @EnvironmentObject private var center: AnalysisCenter
+    @Environment(\.appPalette) private var palette
     @Query private var trackedApps: [TrackedApp]
     let app: TrackedApp
     @Binding var country: String
@@ -50,6 +51,7 @@ struct AnalysisView: View {
                     Text("Uygulamanın adı, alt başlığı ve açıklamasından aday kelimeler çıkarılır, App Store'da aranır; sıralandığın kelimeler, rakiplerin ve rakiplerin sıralanıp senin sıralanmadığın fırsat kelimeler bulunur. Yaklaşık 1–2 dakika sürer.")
                 } actions: {
                     Button("Analizi Başlat", action: start).buttonStyle(.borderedProminent)
+                        .tint(palette.fromIcon ? palette.primary : nil)
                 }
                 .frame(maxHeight: .infinity)
             } else {
@@ -70,7 +72,7 @@ struct AnalysisView: View {
 
     private func batchBar(_ b: AnalysisCenter.BatchState) -> some View {
         HStack(spacing: 10) {
-            Image(systemName: "globe").foregroundStyle(.blue)
+            Image(systemName: "globe").foregroundStyle(.tint)
             if b.finished, let until = b.blockedUntil {
                 Image(systemName: "hand.raised.fill").foregroundStyle(.orange)
                 Text("Apple aramayı geçici olarak engelledi. \(b.countries.count - b.failed.count) ülke bitti, \(b.failed.count) ülke bekliyor. \(until.formatted(date: .omitted, time: .shortened)) sonrasında devam et.")
@@ -202,7 +204,7 @@ struct AnalysisView: View {
                     HStack(spacing: 8) {
                         Text(o.term).lineLimit(1).frame(maxWidth: .infinity, alignment: .leading)
                         Text(String(format: "%.0f", o.score)).bold().monospacedDigit().frame(width: 50, alignment: .leading)
-                        ScoreBar(value: o.popularity, prefix: "~", tint: .blue).frame(width: 90, alignment: .leading)
+                        PopularityBar(value: o.popularity).frame(width: 90, alignment: .leading)
                         ScoreBar(value: o.difficulty, tint: difficultyColor(o.difficulty)).frame(width: 90, alignment: .leading)
                         Text(o.myRank.map { "#\($0)" } ?? "—").monospacedDigit().foregroundStyle(.secondary)
                             .frame(width: 50, alignment: .leading)
@@ -272,7 +274,7 @@ struct AnalysisView: View {
                 HStack(spacing: 8) {
                     Text(k.term).lineLimit(1).frame(maxWidth: .infinity, alignment: .leading)
                     Text(k.rank.map { "#\($0)" } ?? "—").bold().monospacedDigit().frame(width: 50, alignment: .leading)
-                    ScoreBar(value: k.popularity, prefix: "~", tint: .blue).frame(width: 90, alignment: .leading)
+                    PopularityBar(value: k.popularity).frame(width: 90, alignment: .leading)
                     ScoreBar(value: k.difficulty, tint: difficultyColor(k.difficulty)).frame(width: 90, alignment: .leading)
                     Text(k.source).font(.caption).foregroundStyle(.secondary).frame(width: 80, alignment: .leading)
                     addButton(k.term).frame(width: 70, alignment: .trailing)
@@ -290,7 +292,7 @@ struct AnalysisView: View {
                 HStack {
                     Text(k.term).frame(maxWidth: .infinity, alignment: .leading)
                     Text(k.source).font(.caption).foregroundStyle(.secondary).frame(width: 80, alignment: .leading)
-                    ScoreBar(value: k.popularity, prefix: "~", tint: .blue).frame(width: 90, alignment: .leading)
+                    PopularityBar(value: k.popularity).frame(width: 90, alignment: .leading)
                     ScoreBar(value: k.difficulty, tint: difficultyColor(k.difficulty)).frame(width: 90, alignment: .leading)
                 }
                 .padding(.vertical, 3)

@@ -7,23 +7,51 @@ settings:
   base:
     SWIFT_VERSION: "5.10"
     MACOSX_DEPLOYMENT_TARGET: "14.0"
+packages:
+  Sparkle:
+    url: https://github.com/sparkle-project/Sparkle
+    from: "2.6.4"
 targets:
   Rankly:
     type: application
     platform: macOS
     sources: [Rankly]
+    dependencies:
+      - package: Sparkle
+    info:
+      path: Rankly/Info.plist
+      properties:
+        CFBundleDisplayName: Rankly
+        LSApplicationCategoryType: public.app-category.developer-tools
+        NSHumanReadableCopyright: "© 2026 Arda Sentürk. MIT License."
+        SUFeedURL: https://rankly.ardasnturk.com/appcast.xml
+        SUPublicEDKey: "XPS+L43Wj6drxcPXknaOZ/tr7RDKFN8Iz86zwZa+AyY="
+        SUEnableAutomaticChecks: true
+        SUScheduledCheckInterval: 86400
+        SUEnableInstallerLauncherService: true
+    entitlements:
+      path: Rankly/Rankly.entitlements
+      properties:
+        com.apple.security.app-sandbox: true
+        com.apple.security.network.client: true
+        # Sparkle's installer XPC services (sandboxed apps)
+        com.apple.security.temporary-exception.mach-lookup.global-name:
+          - $(PRODUCT_BUNDLE_IDENTIFIER)-spks
+          - $(PRODUCT_BUNDLE_IDENTIFIER)-spki
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.ardasenturk.rankly
         PRODUCT_NAME: Rankly
-        MARKETING_VERSION: "0.3.0"
-        CURRENT_PROJECT_VERSION: "3"
+        MARKETING_VERSION: "0.1.0"
+        CURRENT_PROJECT_VERSION: "1"
         GENERATE_INFOPLIST_FILE: YES
-        INFOPLIST_KEY_CFBundleDisplayName: Rankly
-        INFOPLIST_KEY_LSApplicationCategoryType: public.app-category.developer-tools
-        ENABLE_APP_SANDBOX: YES
-        ENABLE_OUTGOING_NETWORK_CONNECTIONS: YES
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         ENABLE_HARDENED_RUNTIME: YES
-        CODE_SIGN_IDENTITY: "-"
         CODE_SIGN_STYLE: Manual
+        CODE_SIGN_IDENTITY: "-"
         DEVELOPMENT_TEAM: ""
+      configs:
+        Release:
+          CODE_SIGN_IDENTITY: "Developer ID Application"
+          DEVELOPMENT_TEAM: 5JMD3VSD7N
+          OTHER_CODE_SIGN_FLAGS: "--timestamp"

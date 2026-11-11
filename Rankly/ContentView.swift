@@ -24,22 +24,48 @@ struct ContentView: View {
             .navigationSplitViewColumnWidth(min: 220, ideal: 250)
             .overlay {
                 if apps.isEmpty {
-                    ContentUnavailableView("Uygulama yok", systemImage: "app.dashed",
-                                           description: Text("Takip etmek için bir uygulama ekle."))
+                    VStack(spacing: 10) {
+                        Image(systemName: "sparkle.magnifyingglass")
+                            .font(.system(size: 34, weight: .semibold))
+                            .foregroundStyle(.tint)
+                        Text("Uygulama yok").font(.headline)
+                        Text("Takip etmek için bir uygulama ekle.")
+                            .font(.callout).foregroundStyle(.secondary).multilineTextAlignment(.center)
+                        Button("Uygulama Ekle") { showAddApp = true }.buttonStyle(.borderedProminent)
+                    }
+                    .padding()
                 }
+            }
+            .safeAreaInset(edge: .top) {
+                HStack(spacing: 8) {
+                    RanklyMark(size: 24)
+                    Wordmark(font: .title3.weight(.heavy))
+                    Spacer()
+                }
+                .padding(.horizontal, 14).padding(.top, 4).padding(.bottom, 6)
             }
             .toolbar {
                 ToolbarItem {
                     Button { showAddApp = true } label: { Label("Uygulama Ekle", systemImage: "plus") }
                 }
             }
-            .safeAreaInset(edge: .bottom) { RefreshStatus().padding(10) }
+            .safeAreaInset(edge: .bottom) {
+                RefreshStatus().padding(10)
+                    .background(.bar)
+            }
         } detail: {
             if let app = apps.first(where: { $0.id == selection }) {
                 KeywordsView(app: app, country: $country)
                     .id(app.id)
+                    .appPalette(from: app.iconURL)
             } else {
-                ContentUnavailableView("Bir uygulama seç", systemImage: "chart.line.uptrend.xyaxis")
+                VStack(spacing: 14) {
+                    RanklyMark(size: 72).shadow(color: Theme.purple.opacity(0.35), radius: 18, y: 8)
+                    Text("Bir uygulama seç").font(.title2.bold())
+                    Text("Soldan bir uygulama seç ya da yeni bir tane ekle.").foregroundStyle(.secondary)
+                    Button("Uygulama Ekle") { showAddApp = true }.buttonStyle(.borderedProminent)
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
         }
         .sheet(isPresented: $showAddApp) {
@@ -48,8 +74,12 @@ struct ContentView: View {
             }
         }
         .onAppear {
-            refresher.startSchedule(context: context)
             if selection == nil { selection = apps.first?.id }
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .selectApp)) { note in
+            if let appId = note.object as? String, let app = apps.first(where: { $0.appId == appId }) {
+                selection = app.id
+            }
         }
         .onReceive(NotificationCenter.default.publisher(for: .refreshAll)) { _ in
             Task { await refresher.refreshAll(context: context) }
@@ -90,6 +120,14 @@ struct AppIcon: View {
     let url: String?
     var size: CGFloat = 32
     var body: some View {
+        if let url, url.hasPrefix("demo:") {
+            DemoIcon(spec: url, size: size)
+        } else {
+            remote
+        }
+    }
+
+    private var remote: some View {
         AsyncImage(url: url.flatMap(URL.init(string:))) { img in
             img.resizable()
         } placeholder: {

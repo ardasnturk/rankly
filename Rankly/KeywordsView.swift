@@ -10,6 +10,7 @@ extension Keyword {
 
 struct KeywordsView: View {
     @Environment(\.modelContext) private var context
+    @Environment(\.appPalette) private var palette
     @EnvironmentObject private var refresher: RankRefresher
     @Bindable var app: TrackedApp
     @Binding var country: String
@@ -92,6 +93,7 @@ struct KeywordsView: View {
     private var header: some View {
         HStack(spacing: 12) {
             AppIcon(url: app.iconURL, size: 44)
+                .shadow(color: .black.opacity(0.18), radius: 6, y: 3)
             VStack(alignment: .leading, spacing: 2) {
                 Text(app.name).font(.title2.bold()).lineLimit(1)
                 let sf = Storefronts.byCode(country)
@@ -110,6 +112,7 @@ struct KeywordsView: View {
             summary
         }
         .padding(.horizontal, 16).padding(.vertical, 12)
+        .background(palette.wash(0.16))
     }
 
     private var summary: some View {
@@ -155,7 +158,7 @@ struct KeywordsView: View {
             TableColumn("Değişim", value: \.changeSort) { kw in ChangeBadge(change: kw.change) }
                 .width(70)
             TableColumn("Popülerlik", value: \.popSort) { kw in
-                ScoreBar(value: kw.popularity, prefix: "~", tint: .blue)
+                PopularityBar(value: kw.popularity)
             }
             .width(110)
             TableColumn("Zorluk", value: \.diffSort) { kw in
@@ -245,18 +248,20 @@ struct ChangeBadge: View {
         if let c = change, c != 0 {
             Label("\(abs(c))", systemImage: c > 0 ? "arrow.up" : "arrow.down")
                 .labelStyle(.titleAndIcon)
-                .font(.callout.monospacedDigit())
+                .font(.caption.weight(.semibold).monospacedDigit())
                 .foregroundStyle(c > 0 ? .green : .red)
+                .padding(.horizontal, 6).padding(.vertical, 2)
+                .background(Capsule().fill((c > 0 ? Color.green : Color.red).opacity(0.14)))
         } else {
             Text(change == nil ? "" : "–").foregroundStyle(.secondary)
         }
     }
 }
 
-struct ScoreBar: View {
+struct ScoreBar<S: ShapeStyle>: View {
     let value: Int?
     var prefix = ""
-    var tint: Color
+    var tint: S
     var body: some View {
         if let v = value {
             HStack(spacing: 6) {
