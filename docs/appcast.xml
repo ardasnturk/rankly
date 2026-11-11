@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Rankly</title>
+    <link>https://rankly.ardasnturk.com/appcast.xml</link>
+    <description>Rankly updates</description>
+    <language>en</language>
+    <item>
+      <title>Rankly 0.1.0</title>
+      <pubDate>Wed, 11 Nov 2026 09:18:27 +0000</pubDate>
+      <sparkle:version>1</sparkle:version>
+      <sparkle:shortVersionString>0.1.0</sparkle:shortVersionString>
+      <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+      <sparkle:releaseNotesLink>https://github.com/ardasnturk/rankly/releases/tag/v0.1.0</sparkle:releaseNotesLink>
+      <enclosure url="https://github.com/ardasnturk/rankly/releases/download/v0.1.0/Rankly.dmg" sparkle:edSignature="RAvphZUVhKVjzUvAnnvnu0RgzRzBWcsM/Ep78k52V1kJKShxNpMmb53FyAh8yrcAjA0R5YHAaX0UD1sRHNwzBg==" length="4717540" type="application/octet-stream"/>
+    </item>
+  </channel>
+</rss>

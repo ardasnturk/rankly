@@ -1,0 +1,435 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title data-i18n="meta.title">Rankly — Free App Store keyword rank tracker for Mac</title>
+<meta name="description" content="Rankly is a free, open-source macOS app that tracks where any iPhone app ranks in App Store search — daily, in 53 countries, with automatic ASO analysis. No account, no subscription, no server." data-i18n-attr="content:meta.desc">
+<meta name="theme-color" content="#0B0B14" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#FAFAFD" media="(prefers-color-scheme: light)">
+<link rel="canonical" href="https://rankly.ardasnturk.com/">
+<link rel="icon" type="image/png" sizes="64x64" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Rankly">
+<meta property="og:title" content="Rankly — Free App Store keyword rank tracker for Mac">
+<meta property="og:description" content="Track where any iPhone app ranks in App Store search. Daily, 53 countries, automatic ASO analysis. Free and open source.">
+<meta property="og:url" content="https://rankly.ardasnturk.com/">
+<meta property="og:image" content="https://rankly.ardasnturk.com/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Rankly — Free App Store keyword rank tracker for Mac">
+<meta name="twitter:description" content="Track where any iPhone app ranks in App Store search. Daily, 53 countries, automatic ASO analysis. Free and open source.">
+<meta name="twitter:image" content="https://rankly.ardasnturk.com/assets/og.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/i18n.js" defer></script>
+<script src="assets/main.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main" data-i18n="nav.skip">Skip to content</a>
+
+<header class="nav">
+  <nav class="container nav-inner" aria-label="Main" data-i18n-attr="aria-label:nav.label">
+    <a class="brand" href="./" aria-label="Rankly home" data-i18n-attr="aria-label:nav.home"><img src="assets/icon.png" alt="" width="30" height="30">Rankly</a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#features" data-i18n="nav.features">Features</a></li>
+      <li><a href="#analysis" data-i18n="nav.analysis">Analysis</a></li>
+      <li><a href="#faq" data-i18n="nav.faq">FAQ</a></li>
+      <li><a href="guide.html" data-i18n="nav.guide">Guide</a></li>
+      <li><a href="privacy.html" data-i18n="nav.privacy">Privacy</a></li>
+    </ul>
+    <div class="nav-actions">
+      <div class="lang-toggle" role="group" aria-label="Language" data-i18n-attr="aria-label:nav.lang">
+        <button type="button" data-lang="en" aria-pressed="true" lang="en">EN</button>
+        <button type="button" data-lang="tr" aria-pressed="false" lang="tr">TR</button>
+      </div>
+      <a class="btn btn-ghost btn-sm nav-gh" href="https://github.com/ardasnturk/rankly" aria-label="Rankly on GitHub" data-i18n-attr="aria-label:nav.ghLabel">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12a11.5 11.5 0 0 0 7.86 10.92c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.69 1.25 3.35.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
+        GitHub
+      </a>
+      <button class="menu-btn" type="button" aria-controls="nav-links" aria-expanded="false" aria-label="Menu" data-i18n-attr="aria-label:nav.menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<main id="main">
+  <!-- ============ HERO ============ -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="blobs" aria-hidden="true"><span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span><span class="blob b4"></span></div>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="container">
+      <div class="hero-copy">
+        <img class="hero-icon" src="assets/icon.png" width="112" height="112" alt="Rankly app icon" data-i18n-attr="alt:hero.iconAlt">
+        <span class="eyebrow" data-i18n="hero.eyebrow">Free &amp; open-source ASO for Mac</span>
+        <h1 id="hero-title"><span data-i18n="hero.title1">Know where your app ranks.</span> <span class="grad-text" data-i18n="hero.title2">Every keyword, every day.</span></h1>
+        <p class="lead" data-i18n="hero.lead">Rankly tracks where any iPhone app ranks in App Store search — in 53 countries, with history, competitors and an automatic keyword analysis. A free alternative to paid ASO tools. No account, no subscription, no server.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-primary" href="https://github.com/ardasnturk/rankly/releases/latest/download/Rankly.dmg">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M4 20h16"/></svg>
+            <span data-i18n="cta.download">Download for Mac</span>
+          </a>
+          <a class="btn btn-ghost" href="https://github.com/ardasnturk/rankly">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12a11.5 11.5 0 0 0 7.86 10.92c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.69 1.25 3.35.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
+            <span data-i18n="cta.github">View on GitHub</span>
+          </a>
+        </div>
+        <p class="hero-meta">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="4" y="5" width="16" height="11" rx="2"/><path d="M2 19h20"/></svg><span data-i18n="hero.meta1">macOS 14+ · Apple silicon &amp; Intel</span></span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 6l-6 6 6 6"/><path d="M16 6l6 6-6 6"/></svg><span data-i18n="hero.meta2">Free &amp; open source (MIT)</span></span>
+        </p>
+      </div>
+
+      <!-- Live keyword table demo -->
+      <div class="hero-demo reveal">
+        <div class="window" role="img" aria-label="Animated preview of Rankly's keyword table: keywords with their rank, daily change, popularity, difficulty and trend." data-i18n-attr="aria-label:demo.aria">
+          <div class="window-bar" aria-hidden="true"><span class="dots"><i></i><i></i><i></i></span><span class="window-title">Rankly</span></div>
+          <div class="app-toolbar" aria-hidden="true">
+            <div class="app-chip">
+              <span class="mini-icon">S</span>
+              <span><b>Streakly: Habit Tracker</b><small data-i18n="demo.sub">United States · 7 keywords</small></span>
+            </div>
+            <span class="live-pill" data-i18n="demo.live">Updated today</span>
+            <div class="seg"><span class="on" data-i18n="demo.tabKeywords">Keywords</span><span data-i18n="demo.tabAnalysis">Analysis</span></div>
+          </div>
+          <div class="kw-table" aria-hidden="true">
+            <div class="kw-head">
+              <span data-i18n="col.keyword">Keyword</span>
+              <span data-i18n="col.rank">Rank</span>
+              <span data-i18n="col.change">Change</span>
+              <span data-i18n="col.popularity">Popularity</span>
+              <span class="kw-col-diff" data-i18n="col.difficulty">Difficulty</span>
+              <span class="kw-col-trend" data-i18n="col.trend">Trend</span>
+            </div>
+            <div class="kw-body" id="kw-body"></div>
+          </div>
+        </div>
+        <p class="demo-note" data-i18n="demo.note">Illustration with sample data. Popularity is an estimate.</p>
+      </div>
+
+      <div class="stats">
+        <div class="stat reveal"><b class="grad-text" data-count="53">53</b><span data-i18n="stats.countries">countries</span></div>
+        <div class="stat reveal d1"><b class="grad-text"><span data-i18n="stats.topPrefix">Top</span> <span data-count="250">250</span></b><span data-i18n="stats.results">search results checked</span></div>
+        <div class="stat reveal d2"><b class="grad-text" data-count="100">100</b><span data-i18n="stats.chars">character keyword field, written for you</span></div>
+        <div class="stat reveal d3"><b class="grad-text">0</b><span data-i18n="stats.zero">accounts, servers or fees</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FEATURES ============ -->
+  <section class="section" id="features" aria-labelledby="features-title">
+    <div class="container">
+      <div class="section-head center reveal">
+        <span class="eyebrow" data-i18n="features.eyebrow">Features</span>
+        <h2 id="features-title"><span data-i18n="features.title1">Everything you pay ASO tools for.</span> <span class="grad-text" data-i18n="features.title2">On your Mac, for free.</span></h2>
+        <p class="lead" data-i18n="features.lead">Rankly reads the real iPhone App Store search results, so the ranks you see are the ranks your users see.</p>
+      </div>
+      <div class="grid grid-3">
+        <article class="card reveal" data-tilt>
+          <div class="ficon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 6-6"/><path d="M15 8h5v5"/></svg></div>
+          <h3 data-i18n="f1.title">Daily keyword rank tracking</h3>
+          <p data-i18n="f1.text">Add any app by name, App Store ID or link, then add keywords. Rankly checks the top 250 search results once a day in 53 countries and keeps the full history.</p>
+        </article>
+        <article class="card reveal d1" data-tilt>
+          <div class="ficon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10"/><path d="M10 20V4"/><path d="M16 20v-7"/><path d="M22 20H2"/></svg></div>
+          <h3 data-i18n="f2.title">Popularity &amp; difficulty</h3>
+          <p data-i18n="f2.text">Popularity (~5–100) is estimated from App Store autocomplete. Difficulty (0–100) comes from how established the top-10 apps are and how many put the term in their name.</p>
+        </article>
+        <article class="card reveal d2" data-tilt>
+          <div class="ficon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7"/><path d="M18 14.5a6.5 6.5 0 0 1 3.5 5.5"/></svg></div>
+          <h3 data-i18n="f3.title">Competitor tracking</h3>
+          <p data-i18n="f3.text">See every app ranking for a keyword — the top 30 with ratings — and start tracking any of them in one click.</p>
+        </article>
+        <article class="card reveal" data-tilt>
+          <div class="ficon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6"/><path d="M10 21h4"/><path d="M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/></svg></div>
+          <h3 data-i18n="f4.title">Keyword suggestions</h3>
+          <p data-i18n="f4.text">Find related searches straight from App Store autocomplete, each with its popularity and difficulty, and add them with a click.</p>
+        </article>
+        <article class="card reveal d1" data-tilt>
+          <div class="ficon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.8 4.7 4.7 1.8-4.7 1.8L12 16l-1.8-4.7-4.7-1.8 4.7-1.8z"/><path d="M19 15l.8 2.2 2.2.8-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></svg></div>
+          <h3 data-i18n="f5.title">Automatic ASO analysis</h3>
+          <p data-i18n="f5.text">In about 1–2 minutes Rankly finds the keywords you rank for, discovers your competitors, scores opportunities and suggests a 100-character keyword field.</p>
+        </article>
+        <article class="card reveal d2" data-tilt>
+          <div class="ficon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18a14 14 0 0 1 0-18z"/></svg></div>
+          <h3 data-i18n="f6.title">Multi-country analysis</h3>
+          <p data-i18n="f6.text">Rankly reads your app's languages from the App Store, pre-selects the matching storefronts and analyses each one with its localized name and description.</p>
+        </article>
+        <article class="card reveal" data-tilt>
+          <div class="ficon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 8h18"/><path d="M13 11h5"/><path d="M13 14.5h5"/><path d="M13 18h3"/></svg></div>
+          <h3 data-i18n="f7.title">Menu bar extra</h3>
+          <p data-i18n="f7.text">A compact view of your tracked keywords — top movers and current ranks — right from the menu bar, without opening the main window.</p>
+        </article>
+        <article class="card reveal d1" data-tilt>
+          <div class="ficon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-2.6-6.4"/><path d="M21 4v5h-5"/></svg></div>
+          <h3 data-i18n="f8.title">Automatic updates</h3>
+          <p data-i18n="f8.text">Signed and notarized builds from GitHub Releases, delivered through Sparkle. You always run the latest version.</p>
+        </article>
+        <article class="card reveal d2" data-tilt>
+          <div class="ficon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 19c0-8 5-14 15-15-1 10-7 15-15 15z"/><path d="M5 19l7-7"/></svg></div>
+          <h3 data-i18n="f9.title">Gentle on Apple</h3>
+          <p data-i18n="f9.text">Requests are paced. If Apple temporarily blocks search (HTTP 403), Rankly pauses for an hour instead of hammering the servers.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ HISTORY + COMPETITORS ============ -->
+  <section class="section" aria-labelledby="history-title" style="padding-top:0">
+    <div class="container split">
+      <div class="reveal">
+        <span class="eyebrow" data-i18n="history.eyebrow">Keyword detail</span>
+        <h2 id="history-title"><span data-i18n="history.title1">Watch every climb.</span> <span class="grad-text" data-i18n="history.title2">Spot every rival.</span></h2>
+        <p class="lead" data-i18n="history.lead">Click any keyword to see its rank history and the apps ranking around you.</p>
+        <ul class="checklist">
+          <li><span data-i18n="history.li1">Rank history chart for each keyword and country</span></li>
+          <li><span data-i18n="history.li2">The top 30 apps for the term, with ratings</span></li>
+          <li><span data-i18n="history.li3">Track a competitor with one click — Rankly follows their ranks too</span></li>
+          <li><span data-i18n="history.li4">Refreshes automatically once a day, or press <kbd>⌘</kbd><kbd>R</kbd> anytime</span></li>
+        </ul>
+      </div>
+      <div class="card chart-card reveal d1" data-tilt>
+        <div class="chart-head">
+          <div><b>habit tracker</b><small data-i18n="history.chartSub">United States · last 30 days</small></div>
+          <div style="text-align:right"><span class="chart-rank grad-text">#4</span><small class="muted" style="display:block;color:var(--up);font-weight:600">▲ 27</small></div>
+        </div>
+        <svg class="chart-svg" viewBox="0 0 560 230" role="img" aria-label="Line chart: rank for “habit tracker” improving from #31 to #4 over 30 days." data-i18n-attr="aria-label:history.chartAria">
+          <defs>
+            <linearGradient id="lineGrad" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#4F46E5"/><stop offset=".4" stop-color="#9333EA"/><stop offset=".75" stop-color="#EC4899"/><stop offset="1" stop-color="#F97316"/></linearGradient>
+            <linearGradient id="areaGrad" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#EC4899" stop-opacity=".28"/><stop offset="1" stop-color="#4F46E5" stop-opacity="0"/></linearGradient>
+          </defs>
+          <line class="grid-line" x1="44" x2="545" y1="24" y2="24"/>
+          <line class="grid-line" x1="44" x2="545" y1="66" y2="66"/>
+          <line class="grid-line" x1="44" x2="545" y1="112.7" y2="112.7"/>
+          <line class="grid-line" x1="44" x2="545" y1="159.3" y2="159.3"/>
+          <line class="grid-line" x1="44" x2="545" y1="206" y2="206"/>
+          <text class="axis" x="34" y="28" text-anchor="end">#1</text>
+          <text class="axis" x="34" y="70" text-anchor="end">#10</text>
+          <text class="axis" x="34" y="116.7" text-anchor="end">#20</text>
+          <text class="axis" x="34" y="163.3" text-anchor="end">#30</text>
+          <text class="axis" x="34" y="210" text-anchor="end">#40</text>
+          <path class="area" d="M44.0 164.0 L61.1 173.3 L78.2 159.3 L95.3 150.0 L112.4 154.7 L129.5 140.7 L146.6 131.3 L163.7 136.0 L180.8 122.0 L197.9 117.3 L215.0 126.7 L232.1 108.0 L249.2 103.3 L266.3 98.7 L283.4 103.3 L300.6 89.3 L317.7 84.7 L334.8 80.0 L351.9 84.7 L369.0 75.3 L386.1 70.7 L403.2 66.0 L420.3 61.3 L437.4 66.0 L454.5 56.7 L471.6 52.0 L488.7 47.3 L505.8 42.7 L522.9 42.7 L540.0 38.0 L540.0 206 L44.0 206 Z"/>
+          <path class="line" d="M44.0 164.0 L61.1 173.3 L78.2 159.3 L95.3 150.0 L112.4 154.7 L129.5 140.7 L146.6 131.3 L163.7 136.0 L180.8 122.0 L197.9 117.3 L215.0 126.7 L232.1 108.0 L249.2 103.3 L266.3 98.7 L283.4 103.3 L300.6 89.3 L317.7 84.7 L334.8 80.0 L351.9 84.7 L369.0 75.3 L386.1 70.7 L403.2 66.0 L420.3 61.3 L437.4 66.0 L454.5 56.7 L471.6 52.0 L488.7 47.3 L505.8 42.7 L522.9 42.7 L540.0 38.0"/>
+          <circle class="dot-glow" cx="540" cy="38" r="12"/>
+          <circle class="dot" cx="540" cy="38" r="6"/>
+        </svg>
+        <div class="mini-list" aria-label="Apps ranking for this keyword (sample)" data-i18n-attr="aria-label:history.listAria">
+          <div class="mini-item"><span class="n">1</span><span class="ai" style="background:linear-gradient(135deg,#F59E0B,#EF4444)"></span><span><b>Dayflow: Habit Tracker</b><small>★ 4.8 · 21,345</small></span><span class="track-btn" data-i18n="ui.track">Track</span></div>
+          <div class="mini-item"><span class="n">2</span><span class="ai" style="background:linear-gradient(135deg,#10B981,#0EA5E9)"></span><span><b>Tidy Habits</b><small>★ 4.7 · 9,412</small></span><span class="track-btn" data-i18n="ui.track">Track</span></div>
+          <div class="mini-item"><span class="n">3</span><span class="ai" style="background:linear-gradient(135deg,#8B5CF6,#EC4899)"></span><span><b>Momentum Goals</b><small>★ 4.6 · 5,108</small></span><span class="track-btn on" data-i18n="ui.tracking">Tracking</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ANALYSIS ============ -->
+  <section class="section" id="analysis" aria-labelledby="analysis-title">
+    <div class="container">
+      <div class="section-head center reveal">
+        <span class="eyebrow" data-i18n="analysis.eyebrow">How the analysis works</span>
+        <h2 id="analysis-title"><span data-i18n="analysis.title1">From your listing to</span> <span class="grad-text" data-i18n="analysis.title2">a ready keyword field.</span></h2>
+        <p class="lead" data-i18n="analysis.lead">Open the Analysis tab, press start, and in about 1–2 minutes Rankly does the research an ASO consultant would.</p>
+      </div>
+      <div class="split" style="align-items:start">
+        <ol class="steps">
+          <li class="step reveal"><span class="step-num">1</span><div><h3 data-i18n="step1.title">Extract candidates</h3><p data-i18n="step1.text">Candidate keywords are pulled from your app's name, subtitle and description, then expanded with App Store autocomplete.</p></div></li>
+          <li class="step reveal d1"><span class="step-num">2</span><div><h3 data-i18n="step2.title">Search the App Store</h3><p data-i18n="step2.text">Each candidate is searched in the real App Store to see where you rank — and which words from your name or subtitle you <em>don't</em> rank for.</p></div></li>
+          <li class="step reveal d2"><span class="step-num">3</span><div><h3 data-i18n="step3.title">Discover competitors</h3><p data-i18n="step3.text">Apps in your category that keep showing up at the top for your keywords become your competitor set — automatically.</p></div></li>
+          <li class="step reveal d3"><span class="step-num">4</span><div><h3 data-i18n="step4.title">Score opportunities</h3><p data-i18n="step4.text">Keywords where competitors rank in the top 30 but you don't are scored by popularity, difficulty and how many competitors use them. Brand and app-name searches are filtered out.</p></div></li>
+          <li class="step reveal"><span class="step-num">5</span><div><h3 data-i18n="step5.title">Get your keyword field</h3><p data-i18n="step5.text">A suggested 100-character keyword field for App Store Connect, without repeating words already in your name or subtitle. One click to copy.</p></div></li>
+        </ol>
+        <div>
+          <div class="card kwfield reveal d1">
+            <div class="kwfield-top">
+              <b data-i18n="kwf.title">Suggested keyword field</b>
+              <button class="copy-btn" type="button" data-copy-target="kwf-sample"><span data-i18n="ui.copy">Copy</span></button>
+            </div>
+            <div class="kwfield-box" id="kwf-sample">streak,goal,planner,journal,mood,reminder,checklist,todo,productivity,motivation,focus,selfcare</div>
+            <div class="kwfield-meta"><span data-i18n="kwf.note">Sample · no words from name or subtitle</span><span>95/100</span></div>
+          </div>
+          <div class="card reveal d2" style="margin-top:18px">
+            <b data-i18n="opp.title">Opportunities</b>
+            <div class="mini-list">
+              <div class="mini-item" style="grid-template-columns:1fr auto auto"><span><b>routine planner</b><small data-i18n="opp.c4">4 competitors in top 30</small></span><span class="badge up" data-i18n-attr="title:col.popularity" title="Popularity">44</span><span class="badge flat" data-i18n-attr="title:col.difficulty" title="Difficulty">35</span></div>
+              <div class="mini-item" style="grid-template-columns:1fr auto auto"><span><b>habit journal</b><small data-i18n="opp.c3">3 competitors in top 30</small></span><span class="badge up" data-i18n-attr="title:col.popularity" title="Popularity">38</span><span class="badge flat" data-i18n-attr="title:col.difficulty" title="Difficulty">29</span></div>
+              <div class="mini-item" style="grid-template-columns:1fr auto auto"><span><b>mood tracker</b><small data-i18n="opp.c2">2 competitors in top 30</small></span><span class="badge up" data-i18n-attr="title:col.popularity" title="Popularity">61</span><span class="badge flat" data-i18n-attr="title:col.difficulty" title="Difficulty">66</span></div>
+            </div>
+          </div>
+          <div class="callout reveal d3">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 7.5h.01"/></svg>
+            <p data-i18n="analysis.note">Apple never publishes an app's hidden keyword field — not for you, not for competitors. Rankly finds the keywords an app <strong>really ranks for</strong> instead.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MULTI-COUNTRY ============ -->
+  <section class="section" aria-labelledby="countries-title" style="padding-top:0">
+    <div class="container split reverse">
+      <div class="reveal">
+        <span class="eyebrow" data-i18n="mc.eyebrow">Multi-country</span>
+        <h2 id="countries-title"><span data-i18n="mc.title1">One app.</span> <span class="grad-text" data-i18n="mc.title2">Every storefront it speaks.</span></h2>
+        <p class="lead" data-i18n="mc.lead">Rankly reads which languages your app is localized in, pre-selects the storefronts that search in those languages, and analyses each country in the background with its localized name and description.</p>
+        <ul class="checklist">
+          <li><span data-i18n="mc.li1">“All countries” overview with ranked keywords, top-10 keywords and opportunities per country</span></li>
+          <li><span data-i18n="mc.li2">Best opportunities across all countries in one list</span></li>
+          <li><span data-i18n="mc.li3">Skip countries analysed in the last 24 hours, resume after a block</span></li>
+        </ul>
+      </div>
+      <div class="card reveal d1" data-tilt>
+        <p class="muted" style="font-size:.85rem;margin-bottom:14px" data-i18n="mc.example">Example — app localized in English, German and Turkish</p>
+        <div class="lang-rows">
+          <div class="lang-row"><b>English</b><div class="chips"><span class="chip sel">US</span><span class="chip sel">GB</span><span class="chip sel">CA</span><span class="chip sel">AU</span><span class="chip sel">IE</span><span class="chip sel">NZ</span></div></div>
+          <div class="lang-row"><b>Deutsch</b><div class="chips"><span class="chip sel">DE</span><span class="chip sel">AT</span><span class="chip sel">CH</span></div></div>
+          <div class="lang-row"><b>Türkçe</b><div class="chips"><span class="chip sel">TR</span></div></div>
+          <div class="lang-row"><b data-i18n="mc.other">Other</b><div class="chips"><span class="chip">FR</span><span class="chip">JP</span><span class="chip">BR</span><span class="chip">IT</span><span class="chip">…</span></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SCREENSHOTS ============ -->
+  <section class="section" id="screenshots" aria-labelledby="shots-title" style="padding-top:0">
+    <div class="container">
+      <div class="section-head center reveal">
+        <span class="eyebrow" data-i18n="shots.eyebrow">Screenshots</span>
+        <h2 id="shots-title"><span data-i18n="shots.title1">A native Mac app,</span> <span class="grad-text" data-i18n="shots.title2">built with SwiftUI.</span></h2>
+      </div>
+      <div class="shots">
+        <figure class="shot full reveal">
+          <div class="window">
+            <div class="window-bar" aria-hidden="true"><span class="dots"><i></i><i></i><i></i></span><span class="window-title" data-i18n="shots.k.win">Rankly — Keywords</span></div>
+            <div class="shot-media">
+              <img src="assets/screenshots/keywords.png" alt="Rankly keyword table with ranks, changes, popularity, difficulty and trends" data-i18n-attr="alt:shots.k.alt" loading="lazy" onerror="this.parentNode.classList.add('missing');this.style.display='none'">
+              <div class="ph" aria-hidden="true"><img src="assets/icon.png" alt=""><span data-i18n="shots.k.cap">Keyword tracking</span></div>
+            </div>
+          </div>
+          <figcaption><b data-i18n="shots.k.cap">Keyword tracking</b><span data-i18n="shots.k.text">Ranks, daily change, popularity, difficulty and trend for every keyword.</span></figcaption>
+        </figure>
+        <figure class="shot reveal">
+          <div class="window">
+            <div class="window-bar" aria-hidden="true"><span class="dots"><i></i><i></i><i></i></span><span class="window-title" data-i18n="shots.a.win">Rankly — Analysis</span></div>
+            <div class="shot-media">
+              <img src="assets/screenshots/analysis.png" alt="Rankly analysis tab with ranked keywords, competitors, opportunities and the suggested keyword field" data-i18n-attr="alt:shots.a.alt" loading="lazy" onerror="this.parentNode.classList.add('missing');this.style.display='none'">
+              <div class="ph" aria-hidden="true"><img src="assets/icon.png" alt=""><span data-i18n="shots.a.cap">ASO analysis</span></div>
+            </div>
+          </div>
+          <figcaption><b data-i18n="shots.a.cap">ASO analysis</b><span data-i18n="shots.a.text">Your keywords, competitors, opportunities and a 100-character keyword field.</span></figcaption>
+        </figure>
+        <figure class="shot reveal d1">
+          <div class="window">
+            <div class="window-bar" aria-hidden="true"><span class="dots"><i></i><i></i><i></i></span><span class="window-title" data-i18n="shots.c.win">Rankly — All countries</span></div>
+            <div class="shot-media">
+              <img src="assets/screenshots/countries.png" alt="Rankly multi-country overview across storefronts" data-i18n-attr="alt:shots.c.alt" loading="lazy" onerror="this.parentNode.classList.add('missing');this.style.display='none'">
+              <div class="ph" aria-hidden="true"><img src="assets/icon.png" alt=""><span data-i18n="shots.c.cap">All countries</span></div>
+            </div>
+          </div>
+          <figcaption><b data-i18n="shots.c.cap">All countries</b><span data-i18n="shots.c.text">A per-country overview and the best opportunities across storefronts.</span></figcaption>
+        </figure>
+        <div class="shot full shot-menubar reveal">
+          <figure class="shot" style="margin:0;width:100%">
+            <div class="window">
+              <div class="window-bar" aria-hidden="true"><span class="dots"><i></i><i></i><i></i></span></div>
+              <div class="shot-media">
+                <img src="assets/screenshots/menubar.png" alt="Rankly menu bar extra listing tracked keywords and top movers" data-i18n-attr="alt:shots.m.alt" loading="lazy" onerror="this.parentNode.classList.add('missing');this.style.display='none'">
+                <div class="ph" aria-hidden="true"><img src="assets/icon.png" alt=""><span data-i18n="shots.m.cap">Menu bar extra</span></div>
+              </div>
+            </div>
+          </figure>
+          <div>
+            <h3 style="font-size:1.6rem" data-i18n="shots.m.cap">Menu bar extra</h3>
+            <p class="lead" data-i18n="shots.m.text">Check your top movers and current ranks from the menu bar. One click, no window.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PRIVACY ============ -->
+  <section class="section" id="privacy" aria-labelledby="privacy-title" style="padding-top:0">
+    <div class="container">
+      <div class="privacy-band reveal">
+        <span class="eyebrow" data-i18n="pv.eyebrow">Privacy first</span>
+        <h2 id="privacy-title"><span data-i18n="pv.title1">Your keywords are your business.</span> <span class="grad-text" data-i18n="pv.title2">They stay on your Mac.</span></h2>
+        <p class="lead" data-i18n="pv.lead">No account, no analytics, no tracking. The developer runs no server and receives no data.</p>
+        <div class="privacy-grid">
+          <div class="pv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/><path d="M3 3l18 18"/></svg><b data-i18n="pv1.title">No account</b><p data-i18n="pv1.text">Download, open, start tracking. Nothing to sign up for.</p></div>
+          <div class="pv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3" y="4" width="18" height="7" rx="2"/><rect x="3" y="13" width="18" height="7" rx="2"/><path d="M7 7.5h.01M7 16.5h.01"/><path d="M2 2l20 20"/></svg><b data-i18n="pv2.title">No server</b><p data-i18n="pv2.text">Rankly talks to Apple's App Store directly. There's no Rankly backend.</p></div>
+          <div class="pv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 3l18 18"/><path d="M10.6 6.1A10 10 0 0 1 12 6c6 0 9.5 6 9.5 6a17 17 0 0 1-3 3.6"/><path d="M6.6 6.6C3.9 8.3 2.5 12 2.5 12s3.5 6 9.5 6c1.6 0 3-.4 4.3-1"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/></svg><b data-i18n="pv3.title">No analytics</b><p data-i18n="pv3.text">No tracking, no ads, no cookies. Not in the app, not on this site.</p></div>
+          <div class="pv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="3"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><b data-i18n="pv4.title">Local data</b><p data-i18n="pv4.text">Apps, keywords, history and analyses live in the app's sandbox on your Mac.</p></div>
+        </div>
+        <div class="endpoints"><span data-i18n="pv.talks">Rankly only connects to:</span> <code>search.itunes.apple.com</code> <code>itunes.apple.com</code> <code>rankly.ardasnturk.com/appcast.xml</code> <code>github.com</code> <a href="privacy.html" data-i18n="pv.read">Read the privacy policy →</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FAQ ============ -->
+  <section class="section" id="faq" aria-labelledby="faq-title" style="padding-top:0">
+    <div class="container">
+      <div class="section-head center reveal">
+        <span class="eyebrow" data-i18n="faq.eyebrow">FAQ</span>
+        <h2 id="faq-title" data-i18n="faq.title">Questions, answered</h2>
+      </div>
+      <div class="faq">
+        <details class="reveal"><summary data-i18n="faq1.q">Is Rankly really free?</summary><div class="answer"><p data-i18n="faq1.a">Yes. Rankly is open source under the MIT license. There's no subscription, no trial, no paid tier and no account.</p></div></details>
+        <details class="reveal"><summary data-i18n="faq2.q">Is popularity Apple's real number?</summary><div class="answer"><p data-i18n="faq2.a">No. Apple only shares its search popularity with Apple Search Ads customers. Rankly's popularity (~5–100) is an <strong>estimate</strong> based on how early and how high a term appears in App Store autocomplete. Use it to compare keywords, not as an absolute figure.</p></div></details>
+        <details class="reveal"><summary data-i18n="faq3.q">Why does it need no account?</summary><div class="answer"><p data-i18n="faq3.a">Because there's nothing to log in to. Rankly asks Apple's public App Store endpoints directly from your Mac and stores everything locally. There's no Rankly server holding your data.</p></div></details>
+        <details class="reveal"><summary data-i18n="faq4.q">Will Apple block me?</summary><div class="answer"><p data-i18n="faq4.a">Rankly paces its requests to stay polite. If Apple still temporarily blocks search for your network (HTTP 403), Rankly pauses for an hour instead of retrying, which would only extend the block. Ranking checks simply continue later.</p></div></details>
+        <details class="reveal"><summary data-i18n="faq5.q">Is it on the Mac App Store?</summary><div class="answer"><p data-i18n="faq5.a">No. Rankly is distributed through GitHub Releases as a signed and notarized DMG, and keeps itself up to date with Sparkle.</p></div></details>
+        <details class="reveal"><summary data-i18n="faq6.q">Which ranks does it track?</summary><div class="answer"><p data-i18n="faq6.a">Rankly checks iPhone App Store search results, the top 250 per keyword, in any of 53 countries. If your app isn't in the top 250, it's shown as &gt;250.</p></div></details>
+        <details class="reveal"><summary data-i18n="faq7.q">Can it show a competitor's keyword field?</summary><div class="answer"><p data-i18n="faq7.a">No tool can — Apple never publishes the hidden 100-character keyword field. Rankly shows the keywords a competitor <strong>actually ranks for</strong>, which is what matters.</p></div></details>
+        <details class="reveal"><summary data-i18n="faq8.q">Is Rankly affiliated with Apple?</summary><div class="answer"><p data-i18n="faq8.a">No. Rankly is an independent project. It uses Apple's public but undocumented App Store endpoints, which Apple may change at any time.</p></div></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CTA ============ -->
+  <section aria-labelledby="cta-title">
+    <div class="container">
+      <div class="cta reveal">
+        <div class="blobs" aria-hidden="true"><span class="blob b1"></span><span class="blob b3"></span><span class="blob b4"></span></div>
+        <img src="assets/icon.png" alt="" width="84" height="84">
+        <h2 id="cta-title"><span data-i18n="cta.title1">Start tracking</span> <span class="grad-text" data-i18n="cta.title2">in under a minute.</span></h2>
+        <p class="lead" style="margin:0 auto" data-i18n="cta.lead">Free, open source, and private by design.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-primary" href="https://github.com/ardasnturk/rankly/releases/latest/download/Rankly.dmg">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M4 20h16"/></svg>
+            <span data-i18n="cta.download">Download for Mac</span>
+          </a>
+          <a class="btn btn-ghost" href="guide.html"><span data-i18n="cta.guide">Read the guide</span></a>
+        </div>
+        <p class="hero-meta"><span data-i18n="cta.meta">macOS 14+ · Free &amp; open source</span></p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div>
+        <a class="brand" href="./"><img src="assets/icon.png" alt="" width="30" height="30">Rankly</a>
+        <p data-i18n="footer.tagline">Free, open-source App Store keyword rank tracking for Mac.</p>
+      </div>
+      <ul class="footer-links">
+        <li><a href="guide.html" data-i18n="nav.guide">Guide</a></li>
+        <li><a href="privacy.html" data-i18n="nav.privacy">Privacy</a></li>
+        <li><a href="https://github.com/ardasnturk/rankly">GitHub</a></li>
+        <li><a href="https://github.com/ardasnturk/rankly/blob/main/LICENSE" data-i18n="footer.license">License (MIT)</a></li>
+        <li><a href="https://github.com/ardasnturk/rankly/issues" data-i18n="footer.issues">Report an issue</a></li>
+      </ul>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span data-year>2026</span> Arda Sentürk</span>
+      <span data-i18n="footer.apple">Not affiliated with Apple. App Store is a trademark of Apple Inc.</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

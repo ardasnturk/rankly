@@ -8,6 +8,8 @@ ID="${2:-Developer ID Application: Arda SENTURK (5JMD3VSD7N)}"
 SP="$APP/Contents/Frameworks/Sparkle.framework/Versions/B"
 ENT="$(mktemp)"; trap 'rm -f "$ENT"' EXIT
 codesign -d --entitlements :- "$APP" > "$ENT" 2>/dev/null
+# Debug-only entitlement Xcode may inject; notarization rejects it.
+/usr/libexec/PlistBuddy -c "Delete :com.apple.security.get-task-allow" "$ENT" 2>/dev/null || true
 
 sign() { codesign --force --sign "$ID" --options runtime --timestamp "$@"; }
 sign "$SP/XPCServices/Installer.xpc"

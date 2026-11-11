@@ -14,3 +14,6 @@ xcuserdata/
 *.pem
 sparkle_private_key*
 .env
+
+# Local tooling
+.claude/

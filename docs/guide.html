@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title data-i18n="g.meta.title">User Guide — Rankly</title>
+<meta name="description" content="How to install and use Rankly: tracking App Store keyword ranks, reading the table, running the ASO analysis, multi-country analysis, updates, data storage and troubleshooting." data-i18n-attr="content:g.meta.desc">
+<meta name="theme-color" content="#0B0B14" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#FAFAFD" media="(prefers-color-scheme: light)">
+<link rel="canonical" href="https://rankly.ardasnturk.com/guide.html">
+<link rel="icon" type="image/png" sizes="64x64" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/icon.png">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Rankly">
+<meta property="og:title" content="Rankly User Guide">
+<meta property="og:description" content="Install Rankly and learn every feature: keyword tracking, ASO analysis, multi-country analysis and more.">
+<meta property="og:url" content="https://rankly.ardasnturk.com/guide.html">
+<meta property="og:image" content="https://rankly.ardasnturk.com/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://rankly.ardasnturk.com/assets/og.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/i18n.js" defer></script>
+<script src="assets/main.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main" data-i18n="nav.skip">Skip to content</a>
+
+<header class="nav">
+  <nav class="container nav-inner" aria-label="Main" data-i18n-attr="aria-label:nav.label">
+    <a class="brand" href="./" aria-label="Rankly home" data-i18n-attr="aria-label:nav.home"><img src="assets/icon.png" alt="" width="30" height="30">Rankly</a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="./#features" data-i18n="nav.features">Features</a></li>
+      <li><a href="./#analysis" data-i18n="nav.analysis">Analysis</a></li>
+      <li><a href="./#faq" data-i18n="nav.faq">FAQ</a></li>
+      <li><a href="guide.html" aria-current="page" data-i18n="nav.guide">Guide</a></li>
+      <li><a href="privacy.html" data-i18n="nav.privacy">Privacy</a></li>
+    </ul>
+    <div class="nav-actions">
+      <div class="lang-toggle" role="group" aria-label="Language" data-i18n-attr="aria-label:nav.lang">
+        <button type="button" data-lang="en" aria-pressed="true" lang="en">EN</button>
+        <button type="button" data-lang="tr" aria-pressed="false" lang="tr">TR</button>
+      </div>
+      <a class="btn btn-primary btn-sm nav-gh" href="https://github.com/ardasnturk/rankly/releases/latest/download/Rankly.dmg"><span data-i18n="cta.downloadShort">Download</span></a>
+      <button class="menu-btn" type="button" aria-controls="nav-links" aria-expanded="false" aria-label="Menu" data-i18n-attr="aria-label:nav.menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<main id="main">
+  <section class="page-hero">
+    <div class="blobs" aria-hidden="true"><span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span></div>
+    <div class="container">
+      <span class="eyebrow" data-i18n="g.eyebrow">User guide</span>
+      <h1><span data-i18n="g.title1">Everything Rankly does,</span> <span class="grad-text" data-i18n="g.title2">step by step.</span></h1>
+      <p class="lead" data-i18n="g.lead">From installing the app to reading the analysis and keeping your data under control.</p>
+    </div>
+  </section>
+
+  <div class="container docs">
+    <nav class="toc" aria-label="On this page" data-i18n-attr="aria-label:g.toc">
+      <b data-i18n="g.toc">On this page</b>
+      <ol>
+        <li><a href="#install" data-i18n="g.s1">Install</a></li>
+        <li><a href="#first-launch" data-i18n="g.s2">First launch</a></li>
+        <li><a href="#add-app" data-i18n="g.s3">Add an app</a></li>
+        <li><a href="#add-keywords" data-i18n="g.s4">Add keywords</a></li>
+        <li><a href="#table" data-i18n="g.s5">Reading the table</a></li>
+        <li><a href="#refresh" data-i18n="g.s6">Refreshing &amp; schedule</a></li>
+        <li><a href="#detail" data-i18n="g.s7">Keyword detail</a></li>
+        <li><a href="#suggestions" data-i18n="g.s8">Keyword suggestions</a></li>
+        <li><a href="#analysis" data-i18n="g.s9">Analysis tab</a></li>
+        <li><a href="#multi-country" data-i18n="g.s10">Multi-country analysis</a></li>
+        <li><a href="#menu-bar" data-i18n="g.s11">Menu bar extra</a></li>
+        <li><a href="#updates" data-i18n="g.s12">Updates</a></li>
+        <li><a href="#data" data-i18n="g.s13">Where data is stored</a></li>
+        <li><a href="#uninstall" data-i18n="g.s14">Uninstall</a></li>
+        <li><a href="#troubleshooting" data-i18n="g.s15">Troubleshooting</a></li>
+      </ol>
+    </nav>
+
+    <article class="prose">
+      <section id="install">
+        <h2><span class="h-anchor"><span class="num">1</span><span data-i18n="g.s1">Install</span></span></h2>
+        <ol>
+          <li data-i18n="g.install.1">Download <a href="https://github.com/ardasnturk/rankly/releases/latest/download/Rankly.dmg">Rankly.dmg</a> (latest release from GitHub).</li>
+          <li data-i18n="g.install.2">Open the DMG and drag <strong>Rankly</strong> into the <strong>Applications</strong> folder.</li>
+          <li data-i18n="g.install.3">Eject the DMG and open Rankly from Applications or Launchpad.</li>
+        </ol>
+        <p data-i18n="g.install.req">Requirements: macOS 14 Sonoma or later, on Apple silicon or Intel Macs.</p>
+      </section>
+
+      <section id="first-launch">
+        <h2><span class="h-anchor"><span class="num">2</span><span data-i18n="g.s2">First launch</span></span></h2>
+        <p data-i18n="g.first.1">Rankly is signed and notarized by Apple, so macOS may ask once whether you want to open an app downloaded from the internet. Click <strong>Open</strong>.</p>
+        <p data-i18n="g.first.2">There's no account and no setup. You start with an empty sidebar — add your first app to begin.</p>
+      </section>
+
+      <section id="add-app">
+        <h2><span class="h-anchor"><span class="num">3</span><span data-i18n="g.s3">Add an app</span></span></h2>
+        <ol>
+          <li data-i18n="g.add.1">Click <strong>Add App</strong> (the <strong>+</strong> button in the sidebar).</li>
+          <li data-i18n="g.add.2">Type the app's <strong>name</strong>, its <strong>App Store ID</strong> (e.g. <code>id1234567890</code> or just the digits) or paste its <strong>App Store link</strong>.</li>
+          <li data-i18n="g.add.3">Choose the <strong>country</strong> (storefront) to track — 53 are available — and press <strong>Search</strong>.</li>
+          <li data-i18n="g.add.4">Click <strong>Add</strong> next to the right result. Turn on <strong>Add as competitor</strong> if it isn't your own app.</li>
+        </ol>
+        <p data-i18n="g.add.5">You can track any app — yours or anyone else's. Each tracked app lives in the sidebar with its keyword count.</p>
+      </section>
+
+      <section id="add-keywords">
+        <h2><span class="h-anchor"><span class="num">4</span><span data-i18n="g.s4">Add keywords</span></span></h2>
+        <p data-i18n="g.kw.1">Select an app, type into the keyword field at the top of the <strong>Keywords</strong> tab and press <strong>Add</strong>. Separate several keywords with commas to add them at once:</p>
+        <code class="path">habit tracker, daily routine, streak app, goal planner</code>
+        <p data-i18n="g.kw.2">Rankly checks each new keyword right away. Right-click keywords to refresh, copy or delete the selection.</p>
+      </section>
+
+      <section id="table">
+        <h2><span class="h-anchor"><span class="num">5</span><span data-i18n="g.s5">Reading the table</span></span></h2>
+        <div class="table-wrap">
+          <table class="col-table">
+            <tbody>
+              <tr><th scope="row" data-i18n="col.keyword">Keyword</th><td data-i18n="g.col.keyword">The search term, exactly as a user would type it into the App Store.</td></tr>
+              <tr><th scope="row" data-i18n="col.rank">Rank</th><td data-i18n="g.col.rank">Your position in the iPhone App Store search results for that country. Rankly reads the top 250; <code>&gt;250</code> means the app isn't in them.</td></tr>
+              <tr><th scope="row" data-i18n="col.change">Change</th><td data-i18n="g.col.change">How many places the rank moved since yesterday. Green arrow = up, red arrow = down.</td></tr>
+              <tr><th scope="row" data-i18n="col.popularity">Popularity</th><td data-i18n="g.col.popularity">~5–100. An <strong>estimate</strong> based on how early (after how many letters) and how high the term appears in App Store autocomplete. It is <strong>not</strong> Apple's Search Ads popularity score.</td></tr>
+              <tr><th scope="row" data-i18n="col.difficulty">Difficulty</th><td data-i18n="g.col.difficulty">0–100. How hard the term is to rank for, based on how established the top-10 apps are (their rating counts) and how many of them use the term in their name.</td></tr>
+              <tr><th scope="row" data-i18n="col.trend">Trend</th><td data-i18n="g.col.trend">A sparkline of the recent rank history.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="refresh">
+        <h2><span class="h-anchor"><span class="num">6</span><span data-i18n="g.s6">Refreshing &amp; daily schedule</span></span></h2>
+        <p data-i18n="g.refresh.1">Ranks are refreshed automatically <strong>once a day</strong>: when Rankly starts and the data is older than today, and then with an hourly check while the app is running. One result per keyword per day is stored in the history. With the menu bar extra on, Rankly keeps running after you close the main window, so the daily refresh still happens.</p>
+        <p data-i18n="g.refresh.2">To refresh manually, click the refresh button in the toolbar or press <kbd>⌘</kbd><kbd>R</kbd> (refresh all ranks). A progress counter shows how many keywords are done. Requests are deliberately paced, so large lists take a little while.</p>
+      </section>
+
+      <section id="detail">
+        <h2><span class="h-anchor"><span class="num">7</span><span data-i18n="g.s7">Keyword detail panel</span></span></h2>
+        <p data-i18n="g.detail.1">Select a keyword to open its detail panel:</p>
+        <ul>
+          <li data-i18n="g.detail.2"><strong>Rank history</strong> — a chart of the daily ranks (needs at least two days of data).</li>
+          <li data-i18n="g.detail.3"><strong>Apps ranking for this keyword</strong> — the top 30 apps with their rating and number of ratings.</li>
+          <li data-i18n="g.detail.4"><strong>Track</strong> — adds that app as a competitor in one click so you can follow its ranks too. Apps you already follow show <em>Tracking</em>.</li>
+        </ul>
+      </section>
+
+      <section id="suggestions">
+        <h2><span class="h-anchor"><span class="num">8</span><span data-i18n="g.s8">Keyword suggestions</span></span></h2>
+        <p data-i18n="g.sugg.1">Click <strong>Keyword Suggestions</strong> (lightbulb) in the toolbar, enter a seed word and press <strong>Find</strong>. Rankly lists related searches from App Store autocomplete with an estimated popularity and a difficulty score. Add the ones you like with a click.</p>
+      </section>
+
+      <section id="analysis">
+        <h2><span class="h-anchor"><span class="num">9</span><span data-i18n="g.s9">Analysis tab</span></span></h2>
+        <p data-i18n="g.an.1">Switch to the <strong>Analysis</strong> tab and click <strong>Start Analysis</strong>. Rankly extracts candidate keywords from the app's name, subtitle and description, expands them with autocomplete and searches each in the App Store. It takes about <strong>1–2 minutes</strong>; results are saved per country and you can re-run it anytime with <strong>Re-analyse</strong>.</p>
+        <h3 data-i18n="g.an.h1">Keywords you rank for</h3>
+        <p data-i18n="g.an.p1">Every candidate term where the app appears in the results, with its rank, popularity and difficulty.</p>
+        <h3 data-i18n="g.an.h2">Name &amp; subtitle words you don't rank for</h3>
+        <p data-i18n="g.an.p2">Words that already sit in your most valuable metadata but don't bring you into the results — strong candidates for a rethink.</p>
+        <h3 data-i18n="g.an.h3">Competitors</h3>
+        <p data-i18n="g.an.p3">Discovered automatically: apps that keep appearing near the top for your keywords, from the same category. Competitors you track are always included. Each shows its rating, how many keywords it shares with you and how many it ranks in the top 50 for. Click <strong>Track</strong> to follow one.</p>
+        <h3 data-i18n="g.an.h4">Opportunities</h3>
+        <p data-i18n="g.an.p4">Keywords where competitors rank in the top 30 but you don't. They're scored by popularity, difficulty and how many competitors use them. Searches for brand or app names are filtered out. Click <strong>Track</strong> to add a keyword to your list.</p>
+        <h3 data-i18n="g.an.h5">Suggested keyword field</h3>
+        <p data-i18n="g.an.p5">A ready-to-paste, comma-separated <strong>100-character keyword field</strong> for App Store Connect, built from your best terms. Words already in your name or subtitle aren't repeated (Apple indexes those anyway). Click <strong>Copy</strong> and paste it into App Store Connect.</p>
+        <div class="callout"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 7.5h.01"/></svg><p data-i18n="g.an.note">Apple never publishes an app's hidden keyword field. Rankly doesn't guess it — it finds the keywords the app <strong>really ranks for</strong>.</p></div>
+      </section>
+
+      <section id="multi-country">
+        <h2><span class="h-anchor"><span class="num">10</span><span data-i18n="g.s10">Multi-country analysis</span></span></h2>
+        <p data-i18n="g.mc.1">In the Analysis tab, click <strong>Multi-country analysis…</strong>.</p>
+        <ul>
+          <li data-i18n="g.mc.2"><strong>Language matching</strong> — Rankly reads the languages the app is localized in from the App Store and pre-selects the storefronts that search in those languages. Other countries are listed separately: the app shows in its default language there, so ranking is usually weak.</li>
+          <li data-i18n="g.mc.3"><strong>Skip countries analysed in the last 24 hours</strong> — keep this on to avoid repeating fresh work.</li>
+          <li data-i18n="g.mc.4">Click <strong>Start Analysis</strong>. Countries are analysed one by one in the background, each with its localized name and description. The sheet shows an estimated duration; it's slow on purpose so Apple doesn't block you.</li>
+          <li data-i18n="g.mc.5">When done, switch the scope to <strong>All countries</strong> for a per-country overview (keywords you rank for, how many in the top 10, opportunities) and the best opportunities across all countries.</li>
+          <li data-i18n="g.mc.6"><strong>Resume after a block</strong> — if Apple temporarily blocks search, the run pauses and shows how many countries are finished. After the indicated time, click <strong>Continue with remaining</strong>. Failed countries can be retried with <strong>Retry failed</strong>.</li>
+        </ul>
+      </section>
+
+      <section id="menu-bar">
+        <h2><span class="h-anchor"><span class="num">11</span><span data-i18n="g.s11">Menu bar extra</span></span></h2>
+        <p data-i18n="g.mb.1">Rankly adds an icon to the macOS menu bar. Click it for a compact view of your own apps, without opening the main window:</p>
+        <ul>
+          <li data-i18n="g.mb.2"><strong>Top 10</strong>, <strong>Top 50</strong>, <strong>Rising</strong> and <strong>Falling</strong> keyword counts.</li>
+          <li data-i18n="g.mb.3"><strong>Top movers</strong> — the keywords that moved the most since yesterday.</li>
+          <li data-i18n="g.mb.4">Your keywords with their current rank and change. If you have several apps, switch between them from the menu.</li>
+          <li data-i18n="g.mb.5">Buttons to open Rankly, check for updates, open Settings and quit.</li>
+        </ul>
+        <p data-i18n="g.mb.6">While the menu bar extra is on, closing the main window keeps Rankly running, so daily ranks keep updating in the background. Turn it off with <strong>Show in menu bar</strong> in Settings (<kbd>⌘</kbd><kbd>,</kbd>). Enable <strong>Launch at login</strong> there to have Rankly start with your Mac.</p>
+      </section>
+
+      <section id="updates">
+        <h2><span class="h-anchor"><span class="num">12</span><span data-i18n="g.s12">Updates</span></span></h2>
+        <p data-i18n="g.up.1">Rankly updates itself with <strong>Sparkle</strong>. By default it checks for a new version automatically once a day. You can check right away with <strong>Rankly → Check for Updates…</strong>, the download button in the menu bar extra, or <strong>Check Now</strong> in Settings.</p>
+        <p data-i18n="g.up.2">In Settings (<kbd>⌘</kbd><kbd>,</kbd>) you can turn automatic checks off, or let Rankly download and install updates automatically.</p>
+        <p data-i18n="g.up.3">Every update is signed and notarized and downloaded from GitHub Releases. The update check only fetches the release feed — no system profile or usage data is sent.</p>
+      </section>
+
+      <section id="data">
+        <h2><span class="h-anchor"><span class="num">13</span><span data-i18n="g.s13">Where data is stored</span></span></h2>
+        <p data-i18n="g.data.1">Everything stays on your Mac, inside Rankly's sandbox container:</p>
+        <code class="path">~/Library/Containers/com.ardasenturk.rankly/Data/</code>
+        <ul>
+          <li data-i18n="g.data.2"><strong>SwiftData store</strong> — tracked apps, keywords and rank history.</li>
+          <li data-i18n="g.data.3"><strong>Analysis results</strong> — one JSON file per app and country in <code>Library/Application Support/Rankly/analysis/</code>.</li>
+        </ul>
+        <p data-i18n="g.data.4">Nothing is synced or uploaded anywhere.</p>
+      </section>
+
+      <section id="uninstall">
+        <h2><span class="h-anchor"><span class="num">14</span><span data-i18n="g.s14">How to fully uninstall</span></span></h2>
+        <ol>
+          <li data-i18n="g.un.1">If you enabled <strong>Launch at login</strong>, turn it off in Settings. Then quit Rankly — use the power button in the menu bar extra, or <kbd>⌘</kbd><kbd>Q</kbd>.</li>
+          <li data-i18n="g.un.2">Move <strong>Rankly</strong> from Applications to the Trash.</li>
+          <li data-i18n="g.un.3">In Finder choose <strong>Go → Go to Folder…</strong>, enter <code>~/Library/Containers/</code> and move the <code>com.ardasenturk.rankly</code> folder to the Trash. This deletes all tracked apps, keywords, history and analyses.</li>
+        </ol>
+      </section>
+
+      <section id="troubleshooting">
+        <h2><span class="h-anchor"><span class="num">15</span><span data-i18n="g.s15">Troubleshooting</span></span></h2>
+        <h3 data-i18n="g.ts.h1">“Apple temporarily blocked search” (HTTP 403)</h3>
+        <p data-i18n="g.ts.p1">Apple briefly blocks the search endpoint for a network that sends too many requests. Rankly then stops all searches for <strong>one hour</strong> (retrying would only extend the block) and shows when it will continue. It also doubles the spacing between requests for the future (up to 8 seconds). Just wait — refreshes and analyses resume afterwards.</p>
+        <h3 data-i18n="g.ts.h2">Rank shows “&gt;250”</h3>
+        <p data-i18n="g.ts.p2">The app isn't in the top 250 results for that keyword in that country. Check that you're looking at the right storefront and that the app is available there. New keywords often need time — and metadata changes — to start ranking.</p>
+        <h3 data-i18n="g.ts.h3">“App Store request limit” (HTTP 429)</h3>
+        <p data-i18n="g.ts.p3">The App Store asked Rankly to slow down. Rankly waits and retries automatically with longer pauses. If the error remains, try again a little later.</p>
+        <h3 data-i18n="g.ts.h4">Something else?</h3>
+        <p data-i18n="g.ts.p4">Open an issue on <a href="https://github.com/ardasnturk/rankly/issues">GitHub</a> with your macOS version, Rankly version and what you saw.</p>
+      </section>
+    </article>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div>
+        <a class="brand" href="./"><img src="assets/icon.png" alt="" width="30" height="30">Rankly</a>
+        <p data-i18n="footer.tagline">Free, open-source App Store keyword rank tracking for Mac.</p>
+      </div>
+      <ul class="footer-links">
+        <li><a href="guide.html" data-i18n="nav.guide">Guide</a></li>
+        <li><a href="privacy.html" data-i18n="nav.privacy">Privacy</a></li>
+        <li><a href="https://github.com/ardasnturk/rankly">GitHub</a></li>
+        <li><a href="https://github.com/ardasnturk/rankly/blob/main/LICENSE" data-i18n="footer.license">License (MIT)</a></li>
+        <li><a href="https://github.com/ardasnturk/rankly/issues" data-i18n="footer.issues">Report an issue</a></li>
+      </ul>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span data-year>2026</span> Arda Sentürk</span>
+      <span data-i18n="footer.apple">Not affiliated with Apple. App Store is a trademark of Apple Inc.</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
