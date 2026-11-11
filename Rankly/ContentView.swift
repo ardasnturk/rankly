@@ -90,7 +90,7 @@ struct ContentView: View {
     private func addApp(_ info: AppInfo, competitor: Bool) -> TrackedApp {
         if let existing = apps.first(where: { $0.appId == info.id }) { return existing }
         let app = TrackedApp(appId: info.id, name: info.name, developer: info.developer,
-                             iconURL: info.iconURL, isCompetitor: competitor)
+                             iconURL: info.iconURL, isCompetitor: competitor, bundleId: info.bundleId)
         context.insert(app)
         try? context.save()
         return app

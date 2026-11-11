@@ -23,6 +23,7 @@
 - **Menü çubuğu**: En çok hareket eden kelimeler ve sıralar; ana pencere kapalıyken de yenileme sürer.
 - **Native tasarım**: Takip edilen her uygulamanın ikonundan çıkarılan renklerle tonlanır.
 - **10 dil**: English, Deutsch, Español, Français, Italiano, 日本語, 한국어, Português (Brasil), Türkçe, 简体中文.
+- **Yerel API ve MCP sunucusu**: [Vitrin](https://github.com/ardasnturk/vitrin) Rankly'nin sıralarını ve analizlerini kullanır; Claude Code da MCP üzerinden sorgulayabilir. Her istemci senin onayını ister; ayrıntılar [docs/api.md](docs/api.md) dosyasında.
 - **Otomatik güncelleme**: [Sparkle](https://sparkle-project.org) ile.
 - **Gizlilik**: Hesap, analitik veya sunucu yok. Her şey Mac'inde saklanır.
 

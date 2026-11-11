@@ -6,6 +6,7 @@ struct KeywordDetailView: View {
     @Environment(\.modelContext) private var context
     @Environment(\.appPalette) private var palette
     @EnvironmentObject private var refresher: RankRefresher
+    @EnvironmentObject private var integration: IntegrationStore
     @Query private var trackedApps: [TrackedApp]
     let keyword: Keyword
 
@@ -46,7 +47,20 @@ struct KeywordDetailView: View {
                 Text("The chart needs at least 2 days of data.")
                     .font(.caption).foregroundStyle(.secondary)
             } else {
-                Chart(snaps, id: \.date) { s in
+                let first = snaps.first?.date ?? .distantPast
+                let marks = integration.events(for: keyword.app?.appId ?? "")
+                    .filter { $0.date >= first && ($0.countries == nil || $0.countries!.contains(keyword.country)) }
+                Chart {
+                    ForEach(marks) { e in
+                        RuleMark(x: .value("Date", e.date, unit: .day))
+                            .foregroundStyle(.secondary.opacity(0.6))
+                            .lineStyle(StrokeStyle(lineWidth: 1, dash: [3, 3]))
+                            .annotation(position: .top, alignment: .leading) {
+                                Text(e.kind == "release" ? String(localized: "Release") : e.note)
+                                    .font(.caption2).foregroundStyle(.secondary)
+                            }
+                    }
+                    ForEach(snaps, id: \.date) { s in
                     LineMark(x: .value("Date", s.date, unit: .day), y: .value("Rank", s.rank ?? 0))
                         .interpolationMethod(.monotone)
                         .lineStyle(StrokeStyle(lineWidth: 2.5, lineCap: .round))
@@ -54,6 +68,7 @@ struct KeywordDetailView: View {
                     PointMark(x: .value("Date", s.date, unit: .day), y: .value("Rank", s.rank ?? 0))
                         .symbolSize(22)
                         .foregroundStyle(palette.primary)
+                    }
                 }
                 .chartYScale(domain: .automatic(includesZero: false, reversed: true))
                 .frame(height: 160)
@@ -109,7 +124,7 @@ struct KeywordDetailView: View {
     /// Track a competitor and copy this keyword to it so ranks can be compared.
     private func track(_ info: AppInfo) {
         let app = TrackedApp(appId: info.id, name: info.name, developer: info.developer,
-                             iconURL: info.iconURL, isCompetitor: true)
+                             iconURL: info.iconURL, isCompetitor: true, bundleId: info.bundleId)
         context.insert(app)
         let kw = Keyword(term: keyword.term, country: keyword.country, app: app)
         context.insert(kw)

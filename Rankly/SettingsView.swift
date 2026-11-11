@@ -3,6 +3,11 @@ import ServiceManagement
 
 struct SettingsView: View {
     @EnvironmentObject private var updater: UpdaterViewModel
+    @EnvironmentObject private var integration: IntegrationStore
+    @EnvironmentObject private var appDelegate: AppDelegate
+    @State private var apiEnabled = AppDelegate.apiEnabled
+    @State private var mcpCommand: String?
+    @State private var copiedMCP = false
     @AppStorage("showMenuBarExtra") private var showMenuBarExtra = true
     @State private var launchAtLogin = SMAppService.mainApp.status == .enabled
     @State private var loginError: String?
@@ -48,6 +53,55 @@ struct SettingsView: View {
                     Button("Check Now") { updater.checkForUpdates() }
                         .disabled(!updater.canCheckForUpdates)
                 }
+            }
+            Section {
+                Toggle("Local API for Vitrin and MCP clients", isOn: $apiEnabled)
+                    .onChange(of: apiEnabled) { _, on in appDelegate.setAPIEnabled(on) }
+                if apiEnabled {
+                    if let port = integration.apiPort {
+                        LabeledContent("Address") { Text(verbatim: "http://127.0.0.1:\(port)").font(.callout.monospaced()).textSelection(.enabled) }
+                    } else if let err = integration.apiError {
+                        Text("Couldn't start the local API: \(err)").font(.caption).foregroundStyle(.red)
+                    }
+                    if integration.clients.isEmpty {
+                        Text("No connected apps. When Vitrin connects, Rankly asks for your approval.")
+                            .font(.caption).foregroundStyle(.secondary)
+                    }
+                    ForEach(integration.clients) { c in
+                        HStack {
+                            VStack(alignment: .leading, spacing: 1) {
+                                Text(c.name)
+                                Text(c.lastUsed.map { String(localized: "Last used \($0.formatted(.relative(presentation: .named)))") } ?? String(localized: "Never used"))
+                                    .font(.caption).foregroundStyle(.secondary)
+                            }
+                            Spacer()
+                            Button("Revoke", role: .destructive) { integration.revoke(c.id) }
+                        }
+                    }
+                    if let cmd = mcpCommand {
+                        VStack(alignment: .leading, spacing: 6) {
+                            Text("Run this once in Terminal. The token is shown only now.").font(.caption).foregroundStyle(.secondary)
+                            Text(verbatim: cmd).font(.caption.monospaced()).textSelection(.enabled)
+                                .padding(8).frame(maxWidth: .infinity, alignment: .leading)
+                                .background(RoundedRectangle(cornerRadius: 6).fill(.quaternary.opacity(0.5)))
+                            Button(copiedMCP ? String(localized: "Copied") : String(localized: "Copy")) {
+                                NSPasteboard.general.clearContents()
+                                NSPasteboard.general.setString(cmd, forType: .string)
+                                copiedMCP = true
+                            }
+                        }
+                    } else if let port = integration.apiPort {
+                        Button("Connect Claude Code (MCP)…") {
+                            let token = integration.addClient(name: "MCP")
+                            mcpCommand = "claude mcp add --transport http rankly http://127.0.0.1:\(port)/mcp --header \"Authorization: Bearer \(token)\""
+                        }
+                    }
+                }
+            } header: {
+                Text("Integrations")
+            } footer: {
+                Text("Vitrin and MCP clients such as Claude Code can read your ranks and analyses, add keywords and start analyses. The API only listens on this Mac.")
+                    .font(.caption).foregroundStyle(.secondary)
             }
             Section {
                 HStack {

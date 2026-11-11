@@ -13,6 +13,7 @@ struct AppInfo: Identifiable, Hashable, Sendable, Codable {
     var description: String? = nil
     var subtitle: String? = nil
     var languages: [String]? = nil
+    var bundleId: String? = nil
 }
 
 struct SearchResult: Sendable {
@@ -153,6 +154,17 @@ actor AppStoreClient {
         }
     }
 
+    /// Look up an app by its bundle identifier (used by integrations).
+    func lookup(bundleId: String, country: String) async throws -> AppInfo? {
+        var comps = URLComponents(string: "https://itunes.apple.com/lookup")!
+        comps.queryItems = [.init(name: "bundleId", value: bundleId), .init(name: "country", value: country),
+                            .init(name: "entity", value: "software")]
+        let data = try await fetch(URLRequest(url: comps.url!))
+        guard let info = try Self.parseITunes(data).first else { return nil }
+        lookupCache["\(country):\(info.id)"] = (Date(), info)
+        return info
+    }
+
     /// Find apps by name or numeric App Store id.
     func findApps(query: String, country: String) async throws -> [AppInfo] {
         let trimmed = query.trimmingCharacters(in: .whitespaces)
@@ -246,7 +258,8 @@ actor AppStoreClient {
                            price: r["formattedPrice"] as? String,
                            genreIds: r["genreIds"] as? [String] ?? [],
                            description: r["description"] as? String,
-                           languages: r["languageCodesISO2A"] as? [String])
+                           languages: r["languageCodesISO2A"] as? [String],
+                           bundleId: r["bundleId"] as? String)
         }
     }
 }

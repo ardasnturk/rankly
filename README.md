@@ -27,6 +27,7 @@
 - **Menu bar extra** with top movers and ranks; Rankly keeps refreshing when the main window is closed.
 - **Native design** tinted with colours extracted from each tracked app's icon.
 - **10 languages**: English, Deutsch, Español, Français, Italiano, 日本語, 한국어, Português (Brasil), Türkçe, 简体中文.
+- **Local API and MCP server** for integrations: [Vitrin](https://github.com/ardasnturk/vitrin) uses Rankly's ranks and analyses, and Claude Code can query them over MCP. Every client needs your approval; see [docs/api.md](docs/api.md).
 - **Automatic updates** via [Sparkle](https://sparkle-project.org).
 - **Private by design**: no account, no analytics, no server. Everything is stored on your Mac.
 

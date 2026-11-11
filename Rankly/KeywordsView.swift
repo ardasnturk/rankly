@@ -202,7 +202,7 @@ struct KeywordsView: View {
         let descriptor = FetchDescriptor<TrackedApp>(predicate: #Predicate { $0.appId == info.id })
         guard ((try? context.fetchCount(descriptor)) ?? 0) == 0 else { return }
         context.insert(TrackedApp(appId: info.id, name: info.name, developer: info.developer,
-                                  iconURL: info.iconURL, isCompetitor: true))
+                             iconURL: info.iconURL, isCompetitor: true, bundleId: info.bundleId))
         try? context.save()
     }
 

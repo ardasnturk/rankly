@@ -9,9 +9,12 @@ final class TrackedApp {
     var iconURL: String?
     var isCompetitor: Bool
     var addedAt: Date
+    /// App Store bundle identifier (used by integrations such as Vitrin to match apps). Filled lazily.
+    var bundleId: String?
     @Relationship(deleteRule: .cascade, inverse: \Keyword.app) var keywords: [Keyword] = []
 
-    init(appId: String, name: String, developer: String, iconURL: String?, isCompetitor: Bool = false) {
+    init(appId: String, name: String, developer: String, iconURL: String?, isCompetitor: Bool = false, bundleId: String? = nil) {
+        self.bundleId = bundleId
         self.appId = appId
         self.name = name
         self.developer = developer
