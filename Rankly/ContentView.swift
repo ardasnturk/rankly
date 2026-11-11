@@ -15,10 +15,10 @@ struct ContentView: View {
                 let mine = apps.filter { !$0.isCompetitor }
                 let rivals = apps.filter(\.isCompetitor)
                 if !mine.isEmpty {
-                    Section("Uygulamalarım") { ForEach(mine) { AppRow(app: $0).tag($0.id) } }
+                    Section("My Apps") { ForEach(mine) { AppRow(app: $0).tag($0.id) } }
                 }
                 if !rivals.isEmpty {
-                    Section("Rakipler") { ForEach(rivals) { AppRow(app: $0).tag($0.id) } }
+                    Section("Competitors") { ForEach(rivals) { AppRow(app: $0).tag($0.id) } }
                 }
             }
             .navigationSplitViewColumnWidth(min: 220, ideal: 250)
@@ -28,10 +28,10 @@ struct ContentView: View {
                         Image(systemName: "sparkle.magnifyingglass")
                             .font(.system(size: 34, weight: .semibold))
                             .foregroundStyle(.tint)
-                        Text("Uygulama yok").font(.headline)
-                        Text("Takip etmek için bir uygulama ekle.")
+                        Text("No Apps").font(.headline)
+                        Text("Add an app to start tracking.")
                             .font(.callout).foregroundStyle(.secondary).multilineTextAlignment(.center)
-                        Button("Uygulama Ekle") { showAddApp = true }.buttonStyle(.borderedProminent)
+                        Button("Add App") { showAddApp = true }.buttonStyle(.borderedProminent)
                     }
                     .padding()
                 }
@@ -46,7 +46,7 @@ struct ContentView: View {
             }
             .toolbar {
                 ToolbarItem {
-                    Button { showAddApp = true } label: { Label("Uygulama Ekle", systemImage: "plus") }
+                    Button { showAddApp = true } label: { Label("Add App", systemImage: "plus") }
                 }
             }
             .safeAreaInset(edge: .bottom) {
@@ -61,9 +61,9 @@ struct ContentView: View {
             } else {
                 VStack(spacing: 14) {
                     RanklyMark(size: 72).shadow(color: Theme.purple.opacity(0.35), radius: 18, y: 8)
-                    Text("Bir uygulama seç").font(.title2.bold())
-                    Text("Soldan bir uygulama seç ya da yeni bir tane ekle.").foregroundStyle(.secondary)
-                    Button("Uygulama Ekle") { showAddApp = true }.buttonStyle(.borderedProminent)
+                    Text("Select an App").font(.title2.bold())
+                    Text("Select an app on the left or add a new one.").foregroundStyle(.secondary)
+                    Button("Add App") { showAddApp = true }.buttonStyle(.borderedProminent)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
@@ -105,13 +105,13 @@ struct AppRow: View {
             AppIcon(url: app.iconURL, size: 28)
             VStack(alignment: .leading, spacing: 1) {
                 Text(app.name).lineLimit(1)
-                Text("\(app.keywords.count) kelime").font(.caption).foregroundStyle(.secondary)
+                Text("\(app.keywords.count) keywords").font(.caption).foregroundStyle(.secondary)
             }
         }
         .contextMenu {
-            Button(app.isCompetitor ? "Uygulamalarıma taşı" : "Rakiplere taşı") { app.isCompetitor.toggle() }
+            Button(app.isCompetitor ? String(localized: "Move to My Apps") : String(localized: "Move to Competitors")) { app.isCompetitor.toggle() }
             Divider()
-            Button("Sil", role: .destructive) { context.delete(app); try? context.save() }
+            Button("Delete", role: .destructive) { context.delete(app); try? context.save() }
         }
     }
 }
@@ -147,14 +147,14 @@ struct RefreshStatus: View {
                 ProgressView(value: Double(refresher.progress.done), total: Double(max(1, refresher.progress.total)))
                 Text("\(refresher.progress.done)/\(refresher.progress.total)").font(.caption).monospacedDigit()
             } else {
-                Text(refresher.lastRun.map { "Son güncelleme: \($0.formatted(.relative(presentation: .named)))" } ?? "Henüz güncellenmedi")
+                Text(refresher.lastRun.map { String(localized: "Last updated: \($0.formatted(.relative(presentation: .named)))") } ?? String(localized: "Not updated yet"))
                     .font(.caption).foregroundStyle(.secondary)
                 Spacer()
                 Button { Task { await refresher.refreshAll(context: context) } } label: {
                     Image(systemName: "arrow.clockwise")
                 }
                 .buttonStyle(.borderless)
-                .help("Tümünü yenile (⌘R)")
+                .help("Refresh all (⌘R)")
             }
         }
     }

@@ -32,7 +32,7 @@ final class UpdaterViewModel: ObservableObject {
 struct CheckForUpdatesButton: View {
     @ObservedObject var updater: UpdaterViewModel
     var body: some View {
-        Button("Güncellemeleri Denetle…") { updater.checkForUpdates() }
+        Button("Check for Updates…") { updater.checkForUpdates() }
             .disabled(!updater.canCheckForUpdates)
     }
 }

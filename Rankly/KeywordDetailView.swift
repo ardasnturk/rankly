@@ -22,9 +22,9 @@ struct KeywordDetailView: View {
                     Text("\(sf.flag) \(sf.name)").foregroundStyle(.secondary)
                 }
                 HStack(spacing: 20) {
-                    Stat(title: "Sıra", value: keyword.currentRank.map { "#\($0)" } ?? "—")
-                    Stat(title: "Popülerlik", value: keyword.popularity.map { "~\($0)" } ?? "—", color: palette.primary)
-                    Stat(title: "Zorluk", value: keyword.difficulty.map(String.init) ?? "—",
+                    Stat(title: "Rank", value: keyword.currentRank.map { "#\($0)" } ?? "—")
+                    Stat(title: "Popularity", value: keyword.popularity.map { "~\($0)" } ?? "—", color: palette.primary)
+                    Stat(title: "Difficulty", value: keyword.difficulty.map(String.init) ?? "—",
                          color: difficultyColor(keyword.difficulty))
                 }
 
@@ -40,18 +40,18 @@ struct KeywordDetailView: View {
 
     private var history: some View {
         VStack(alignment: .leading, spacing: 6) {
-            Text("Sıra Geçmişi").font(.headline)
+            Text("Rank History").font(.headline)
             let snaps = keyword.sortedSnapshots.filter { $0.rank != nil }
             if snaps.count < 2 {
-                Text("Grafik için en az 2 günlük veri gerekiyor.")
+                Text("The chart needs at least 2 days of data.")
                     .font(.caption).foregroundStyle(.secondary)
             } else {
                 Chart(snaps, id: \.date) { s in
-                    LineMark(x: .value("Tarih", s.date, unit: .day), y: .value("Sıra", s.rank ?? 0))
+                    LineMark(x: .value("Date", s.date, unit: .day), y: .value("Rank", s.rank ?? 0))
                         .interpolationMethod(.monotone)
                         .lineStyle(StrokeStyle(lineWidth: 2.5, lineCap: .round))
                         .foregroundStyle(palette.gradient)
-                    PointMark(x: .value("Tarih", s.date, unit: .day), y: .value("Sıra", s.rank ?? 0))
+                    PointMark(x: .value("Date", s.date, unit: .day), y: .value("Rank", s.rank ?? 0))
                         .symbolSize(22)
                         .foregroundStyle(palette.primary)
                 }
@@ -64,7 +64,7 @@ struct KeywordDetailView: View {
     private var rankingList: some View {
         VStack(alignment: .leading, spacing: 8) {
             HStack {
-                Text("Bu kelimede sıralananlar").font(.headline)
+                Text("Apps ranking for this keyword").font(.headline)
                 Spacer()
                 if loading { ProgressView().controlSize(.small) }
             }
@@ -77,14 +77,14 @@ struct KeywordDetailView: View {
                     VStack(alignment: .leading, spacing: 1) {
                         Text(item.info.name).lineLimit(1).truncationMode(.tail)
                             .fontWeight(item.info.id == keyword.app?.appId ? .bold : .regular)
-                        Text("★ \(item.info.rating, specifier: "%.1f") · \(item.info.ratingCount.formatted()) puan")
+                        Text("★ \(item.info.rating, specifier: "%.1f") · \(item.info.ratingCount.formatted()) ratings")
                             .font(.caption).foregroundStyle(.secondary)
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
                     if tracked != nil {
-                        Text("Takipte").font(.caption).foregroundStyle(.secondary)
+                        Text("Tracking").font(.caption).foregroundStyle(.secondary)
                     } else {
-                        Button("Takip et") { track(item.info) }.controlSize(.small)
+                        Button("Track") { track(item.info) }.controlSize(.small)
                     }
                 }
             }

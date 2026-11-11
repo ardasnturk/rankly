@@ -71,7 +71,7 @@ struct KeywordAnalyzer {
     func run(appId: String, country: String, pinnedCompetitorIds: [String] = [],
              progress: Progress) async throws -> AnalysisResult {
         // 1. Metadata of my app (+ subtitle via a search for its own name).
-        await progress("Uygulama bilgileri alınıyor", 0.02)
+        await progress(String(localized: "Fetching app details"), 0.02)
         let store = Storefronts.byCode(country)
         // Without `lang`, Apple returns the default (usually English) metadata even in localized stores.
         let storeLang = store.languages.first.map { "\($0.lowercased())_\(country)" }
@@ -90,14 +90,14 @@ struct KeywordAnalyzer {
         }
 
         // 2. Candidate terms for my app.
-        await progress("Aday kelimeler çıkarılıyor", 0.05)
+        await progress(String(localized: "Extracting candidate keywords"), 0.05)
         let title = KeywordExtractor.titleTerms(name: me.name, subtitle: me.subtitle, country: country)
         var candidates = title
         candidates += KeywordExtractor.descriptionTerms(me.description, country: country, limit: 45)
         let seeds = title.filter { $0.term.split(separator: " ").count <= 2 }.prefix(6)
         for seed in seeds {
             for h in ((try? await client.hints(for: seed.term, country: country)) ?? []).prefix(8) {
-                candidates.append(.init(term: KeywordExtractor.lower(h), source: "öneri"))
+                candidates.append(.init(term: KeywordExtractor.lower(h), source: KeywordSource.suggestion))
             }
         }
         let myCandidates = Array(dedupe(candidates).prefix(myCandidateLimit))
@@ -107,11 +107,11 @@ struct KeywordAnalyzer {
         // 3. Search every candidate once (results give ranks for ALL apps at once).
         var results: [String: SearchResult] = [:]
         try await searchAll(myCandidates.map(\.term), country: country, into: &results) { done, total in
-            await progress("Kelimeler aranıyor (\(done)/\(total))", 0.05 + 0.35 * Double(done) / Double(max(1, total)))
+            await progress(String(localized: "Searching keywords (\(done)/\(total))"), 0.05 + 0.35 * Double(done) / Double(max(1, total)))
         }
 
         // 4. Competitor discovery: apps that keep showing up near the top for my terms.
-        await progress("Rakipler belirleniyor", 0.42)
+        await progress(String(localized: "Finding competitors"), 0.42)
         var overlap: [String: Double] = [:]
         for r in results.values {
             for (i, id) in r.ids.prefix(15).enumerated() where id != appId {
@@ -154,9 +154,9 @@ struct KeywordAnalyzer {
             compCandidates += Array(dedupe(t + d).prefix(competitorCandidateLimit))
         }
         let newTerms = dedupe(compCandidates).map(\.term).filter { results[$0] == nil }
-        for t in newTerms where sourceOf[t] == nil { sourceOf[t] = "rakip" }
+        for t in newTerms where sourceOf[t] == nil { sourceOf[t] = KeywordSource.competitor }
         try await searchAll(newTerms, country: country, into: &results) { done, total in
-            await progress("Rakip kelimeleri aranıyor (\(done)/\(total))", 0.45 + 0.30 * Double(done) / Double(max(1, total)))
+            await progress(String(localized: "Searching competitor keywords (\(done)/\(total))"), 0.45 + 0.30 * Double(done) / Double(max(1, total)))
         }
 
         // 6. Rank maps.
@@ -247,7 +247,7 @@ struct KeywordAnalyzer {
                 for await (t, p) in group { pop[t] = p }
             }
             done += chunk.count
-            await progress("Popülerlik ve zorluk hesaplanıyor (\(done)/\(scoreTerms.count))",
+            await progress(String(localized: "Calculating popularity and difficulty (\(done)/\(scoreTerms.count))"),
                            0.77 + 0.21 * Double(done) / Double(max(1, scoreTerms.count)))
         }
 
@@ -268,7 +268,7 @@ struct KeywordAnalyzer {
         let field = keywordField(me: me, country: country,
                                  terms: opps.filter { $0.score >= 15 }.map(\.term) + mine.filter { ($0.rank ?? 0) > 5 && !titleSet.contains($0.term) }.map(\.term))
 
-        await progress("Bitti", 1)
+        await progress(String(localized: "Done"), 1)
         return AnalysisResult(appId: appId, country: country, createdAt: Date(), app: me,
                               searchedTerms: results.count, myKeywords: mine, missedTitleTerms: missed,
                               competitors: compStats, opportunities: opps, keywordField: field)

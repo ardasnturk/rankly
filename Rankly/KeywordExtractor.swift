@@ -26,7 +26,7 @@ enum KeywordExtractor {
 
     struct Candidate: Hashable {
         let term: String
-        let source: String   // "ad", "alt başlık", "açıklama", "öneri"
+        let source: String   // KeywordSource code
     }
 
     /// Lowercase without Turkish dotless-i rules (metadata mixes English brand words like "BMI").
@@ -76,7 +76,7 @@ enum KeywordExtractor {
         let loc = locale(for: country)
         var seen = Set<String>()
         var out: [Candidate] = []
-        for (text, src) in [(name, "ad"), (subtitle ?? "", "alt başlık")] {
+        for (text, src) in [(name, KeywordSource.name), (subtitle ?? "", KeywordSource.subtitle)] {
             for p in phrases(text, locale: loc) {
                 for g in ngrams(p) where seen.insert(g).inserted { out.append(Candidate(term: g, source: src)) }
             }
@@ -97,7 +97,7 @@ enum KeywordExtractor {
                 .prefix(take).map(\.key)
         }
         let picks = top(2, minCount: 2, take: limit / 2) + top(1, minCount: 3, take: limit / 3) + top(3, minCount: 2, take: limit / 6)
-        return picks.map { Candidate(term: $0, source: "açıklama") }
+        return picks.map { Candidate(term: $0, source: KeywordSource.description) }
     }
 
     /// Words that make up a keyword field suggestion, excluding words already in name/subtitle.

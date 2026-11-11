@@ -20,12 +20,12 @@ struct SuggestionsView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
-            Text("Kelime Önerileri").font(.title3.bold())
-            Text("App Store otomatik tamamlamasından gelen ilgili aramalar.")
+            Text("Keyword Suggestions").font(.title3.bold())
+            Text("Related searches from App Store autocomplete.")
                 .font(.caption).foregroundStyle(.secondary)
             HStack {
-                TextField("Tohum kelime", text: $seed).textFieldStyle(.roundedBorder).onSubmit(load)
-                Button("Bul", action: load)
+                TextField("Seed keyword", text: $seed).textFieldStyle(.roundedBorder).onSubmit(load)
+                Button("Find", action: load)
             }
             if loading { ProgressView().frame(maxWidth: .infinity) }
             List(items) { s in
@@ -33,9 +33,9 @@ struct SuggestionsView: View {
                     Text(s.term).lineLimit(1)
                     Spacer()
                     Text(s.popularity.map { "~\($0)" } ?? "…").monospacedDigit().foregroundStyle(palette.primary)
-                        .frame(width: 34).help("Popülerlik (tahmini)")
+                        .frame(width: 34).help("Popularity (estimated)")
                     Text(s.difficulty.map(String.init) ?? "…").monospacedDigit()
-                        .foregroundStyle(difficultyColor(s.difficulty)).frame(width: 28).help("Zorluk")
+                        .foregroundStyle(difficultyColor(s.difficulty)).frame(width: 28).help("Difficulty")
                     let isAdded = added.contains(s.term) || existing.contains(s.term)
                     Button { onAdd([s.term]); added.insert(s.term) } label: {
                         Image(systemName: isAdded ? "checkmark" : "plus")

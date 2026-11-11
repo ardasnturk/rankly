@@ -28,7 +28,7 @@ struct RanklyApp: App {
                 CheckForUpdatesButton(updater: appDelegate.updater)
             }
             CommandGroup(after: .newItem) {
-                Button("Tüm Sıraları Yenile") {
+                Button("Refresh All Ranks") {
                     NotificationCenter.default.post(name: .refreshAll, object: nil)
                 }
                 .keyboardShortcut("r", modifiers: .command)

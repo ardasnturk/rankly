@@ -1,7 +1,8 @@
 /* Rankly website — Turkish translations.
  * English is the source text inside the HTML; main.js swaps in these strings
  * for elements with data-i18n / data-i18n-attr when Turkish is selected. */
-window.RANKLY_TR = {
+window.RANKLY_I18N = window.RANKLY_I18N || {};
+window.RANKLY_I18N["tr"] = {
   /* ---------- Shared ---------- */
   "nav.skip": `İçeriğe geç`,
   "nav.label": `Ana menü`,
@@ -252,7 +253,7 @@ window.RANKLY_TR = {
   "g.mb.3": `<strong>En çok hareket edenler</strong> — dünden bu yana en çok değişen kelimeler.`,
   "g.mb.4": `Kelimelerin, güncel sıraları ve değişimleriyle. Birden fazla uygulaman varsa menüden aralarında geçiş yapabilirsin.`,
   "g.mb.5": `Rankly'yi açma, güncellemeleri denetleme, Ayarlar'ı açma ve çıkış düğmeleri.`,
-  "g.mb.6": `Menü çubuğu açıkken ana pencereyi kapatmak Rankly'yi kapatmaz; günlük sıralar arka planda güncellenmeye devam eder. Bunu Ayarlar'daki (<kbd>⌘</kbd><kbd>,</kbd>) <strong>Menü çubuğunda göster</strong> ile kapatabilirsin. Rankly'nin Mac'inle birlikte açılması için yine oradan <strong>Girişte başlat</strong>'ı aç.`,
+  "g.mb.6": `Menü çubuğu açıkken ana pencereyi kapatmak Rankly'yi kapatmaz; günlük sıralar arka planda güncellenmeye devam eder. Bunu <strong>Menü çubuğunda göster</strong> ile Ayarlar'dan (<kbd>⌘</kbd><kbd>,</kbd>) kapatabilirsin. Rankly'nin Mac'inle birlikte açılması için yine oradan <strong>Girişte başlat</strong>'ı aç.`,
   "g.up.1": `Rankly kendini <strong>Sparkle</strong> ile günceller. Varsayılan olarak yeni sürümü günde bir kez otomatik denetler. Hemen denetlemek için <strong>Rankly → Güncellemeleri Denetle…</strong> menüsünü, menü çubuğundaki indirme düğmesini ya da Ayarlar'daki <strong>Şimdi Denetle</strong>'yi kullan.`,
   "g.up.2": `Ayarlar'da (<kbd>⌘</kbd><kbd>,</kbd>) otomatik denetimi kapatabilir ya da güncellemelerin otomatik indirilip kurulmasını sağlayabilirsin.`,
   "g.up.3": `Her güncelleme imzalı ve noter onaylıdır, GitHub Releases'tan indirilir. Güncelleme denetimi yalnızca sürüm akışını indirir — sistem profili ya da kullanım verisi gönderilmez.`,
@@ -302,7 +303,7 @@ window.RANKLY_TR = {
   "p.net.4": `Rankly güncellemeleri denetlemek için Sparkle çerçevesini kullanır. Güncelleme akışını <code>https://rankly.ardasnturk.com/appcast.xml</code> adresinden (GitHub Pages üzerinde) indirir ve bir güncellemeyi kurduğunda güncelleme dosyasını GitHub Releases'tan alır. Bu indirmelerde GitHub IP adresini görebilir; <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub'ın gizlilik bildirimi</a> geçerlidir. Güncelleme denetimiyle <strong>sistem profili</strong> ya da kullanım bilgisi gönderilmez.`,
   "p.store.1": `Takip edilen tüm uygulamalar, kelimeler, sıra geçmişi ve analiz sonuçları uygulamanın sandbox kapsayıcısında yerel olarak saklanır:`,
   "p.store.2": `Bu veriler Rankly aracılığıyla Mac'inden asla çıkmaz. Uygulamanın kapsayıcı klasörünü silmek her şeyi kaldırır. Bkz. <a href="guide.html#uninstall">kaldırma kılavuzu</a>.`,
-  "p.web.1": `rankly.ardasnturk.com, GitHub Pages üzerinde barındırılan statik bir sitedir. <strong>Analitik ve çerez kullanmaz</strong>. Dil tercihin (EN/TR) tarayıcının yerel depolamasında hatırlanır ve hiçbir yere gönderilmez.`,
+  "p.web.1": `rankly.ardasnturk.com, GitHub Pages üzerinde barındırılan statik bir sitedir. <strong>Analitik ve çerez kullanmaz</strong>. Dil tercihin tarayıcının yerel depolamasında hatırlanır ve hiçbir yere gönderilmez.`,
   "p.web.2": `Barındırıcı olarak GitHub, sayfaları sunmak için IP adresin gibi sunucu kayıtlarını işler. Site yazı tiplerini Google Fonts'tan yükler; bu nedenle ziyaretinde Google IP adresini alabilir. Bkz. <a href="https://policies.google.com/privacy">Google'ın gizlilik politikası</a>.`,
   "p.child.1": `Rankly, uygulama geliştiricileri ve pazarlamacılar için bir araçtır ve çocuklara yönelik değildir. Hiçbir kişisel veri toplamadığı için çocuklardan da veri toplamaz.`,
   "p.chg.1": `Bu politika değişirse güncel sürüm yeni bir yürürlük tarihiyle bu sayfada yayımlanır. Önemli değişiklikler GitHub'daki sürüm notlarında da belirtilir.`,

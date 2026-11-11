@@ -7,9 +7,19 @@
   var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   /* ------------------------------------------------------------------
-   * i18n — English lives in the HTML; Turkish comes from assets/i18n.js
+   * i18n — English lives in the HTML; other languages load on demand from
+   * assets/i18n/<code>.js, which register window.RANKLY_I18N[<code>].
    * ------------------------------------------------------------------ */
-  var TR = window.RANKLY_TR || {};
+  var LANGS = [
+    ["en", "English"], ["de", "Deutsch"], ["es", "Español"], ["fr", "Français"], ["it", "Italiano"],
+    ["ja", "日本語"], ["ko", "한국어"], ["pt-BR", "Português (Brasil)"], ["tr", "Türkçe"], ["zh-Hans", "简体中文"]
+  ];
+  var CODES = LANGS.map(function (l) { return l[0]; });
+  var BASE = (function () {
+    var s = document.currentScript && document.currentScript.src;
+    return s ? s.replace(/main\.js(\?.*)?$/, "") : "assets/";
+  })();
+  window.RANKLY_I18N = window.RANKLY_I18N || {};
   var STORE_KEY = "rankly-lang";
   var enText = new Map();   // element -> original innerHTML
   var enAttr = new Map();   // element -> {attr: original}
@@ -21,15 +31,28 @@
   function saveLang(l) {
     try { window.localStorage.setItem(STORE_KEY, l); } catch (e) { /* storage unavailable */ }
   }
-  function detectLang() {
-    var s = storedLang();
-    if (s === "en" || s === "tr") return s;
-    var nav = (navigator.languages && navigator.languages[0]) || navigator.language || "en";
-    return /^tr\b/i.test(nav) ? "tr" : "en";
+  function match(tag) {
+    if (!tag) return null;
+    tag = String(tag);
+    if (CODES.indexOf(tag) >= 0) return tag;
+    var low = tag.toLowerCase();
+    if (/^pt\b/.test(low)) return "pt-BR";
+    if (/^zh\b/.test(low)) return "zh-Hans";
+    var base = low.split("-")[0];
+    return CODES.indexOf(base) >= 0 ? base : null;
   }
+  function detectLang() {
+    var s = match(storedLang());
+    if (s) return s;
+    var list = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language];
+    for (var i = 0; i < list.length; i++) { var m = match(list[i]); if (m) return m; }
+    return "en";
+  }
+  function dict() { return lang === "en" ? null : window.RANKLY_I18N[lang]; }
 
   function t(key, fallback) {
-    if (lang === "tr" && Object.prototype.hasOwnProperty.call(TR, key)) return TR[key];
+    var d = dict();
+    if (d && Object.prototype.hasOwnProperty.call(d, key)) return d[key];
     return fallback;
   }
 
@@ -40,13 +63,25 @@
     }).filter(Boolean);
   }
 
+  function loadDict(l) {
+    return new Promise(function (resolve) {
+      if (l === "en" || window.RANKLY_I18N[l]) return resolve();
+      var sc = document.createElement("script");
+      sc.src = BASE + "i18n/" + l + ".js";
+      sc.onload = function () { resolve(); };
+      sc.onerror = function () { resolve(); };   // missing file -> English fallback
+      document.head.appendChild(sc);
+    });
+  }
+
   function applyLang(l) {
     lang = l;
+    var d = dict();
     doc.setAttribute("lang", l);
     document.querySelectorAll("[data-i18n]").forEach(function (el) {
       if (!enText.has(el)) enText.set(el, el.innerHTML);
       var key = el.getAttribute("data-i18n");
-      var html = l === "tr" && TR[key] !== undefined ? TR[key] : enText.get(el);
+      var html = d && d[key] !== undefined ? d[key] : enText.get(el);
       if (el.tagName === "TITLE") document.title = html.replace(/&amp;/g, "&");
       else if (el.innerHTML !== html) el.innerHTML = html;
     });
@@ -58,24 +93,29 @@
         enAttr.set(el, orig);
       }
       pairs.forEach(function (p) {
-        var v = l === "tr" && TR[p[1]] !== undefined ? TR[p[1]] : enAttr.get(el)[p[0]];
+        var v = d && d[p[1]] !== undefined ? d[p[1]] : enAttr.get(el)[p[0]];
         el.setAttribute(p[0], v);
       });
     });
-    document.querySelectorAll(".lang-toggle button[data-lang]").forEach(function (b) {
-      b.setAttribute("aria-pressed", b.getAttribute("data-lang") === l ? "true" : "false");
-    });
+    document.querySelectorAll("select.lang-select").forEach(function (s) { s.value = l; });
     document.dispatchEvent(new CustomEvent("rankly:lang", { detail: l }));
   }
 
-  document.querySelectorAll(".lang-toggle button[data-lang]").forEach(function (b) {
-    b.addEventListener("click", function () {
-      var l = b.getAttribute("data-lang");
-      saveLang(l);
-      applyLang(l);
-    });
+  function setLang(l) { return loadDict(l).then(function () { applyLang(l); }); }
+
+  document.querySelectorAll("select.lang-select").forEach(function (s) {
+    if (!s.options.length) {
+      LANGS.forEach(function (x) {
+        var o = document.createElement("option");
+        o.value = x[0]; o.textContent = x[1]; o.lang = x[0];
+        s.appendChild(o);
+      });
+    }
+    s.addEventListener("change", function () { saveLang(s.value); setLang(s.value); });
   });
-  applyLang(detectLang());
+  var initial = detectLang();
+  applyLang("en");             // record English originals first
+  if (initial !== "en") setLang(initial);
   window.RanklyI18n = { t: function (k, f) { return t(k, f); }, lang: function () { return lang; } };
 
   /* ------------------------------------------------------------------

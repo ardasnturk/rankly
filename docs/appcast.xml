@@ -7,12 +7,12 @@
     <language>en</language>
     <item>
       <title>Rankly 0.1.0</title>
-      <pubDate>Wed, 11 Nov 2026 09:18:27 +0000</pubDate>
+      <pubDate>Wed, 11 Nov 2026 09:38:45 GMT</pubDate>
       <sparkle:version>1</sparkle:version>
       <sparkle:shortVersionString>0.1.0</sparkle:shortVersionString>
       <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
       <sparkle:releaseNotesLink>https://github.com/ardasnturk/rankly/releases/tag/v0.1.0</sparkle:releaseNotesLink>
-      <enclosure url="https://github.com/ardasnturk/rankly/releases/download/v0.1.0/Rankly.dmg" sparkle:edSignature="RAvphZUVhKVjzUvAnnvnu0RgzRzBWcsM/Ep78k52V1kJKShxNpMmb53FyAh8yrcAjA0R5YHAaX0UD1sRHNwzBg==" length="4717540" type="application/octet-stream"/>
+      <enclosure url="https://github.com/ardasnturk/rankly/releases/download/v0.1.0/Rankly.dmg" sparkle:edSignature="QVD7kkQVupX2oK4FgjVqVv7x69+j6sLno+HesGkzdHmaD/wozPzb3QYlSeZ/w2sXG6fGLMB8L4k8mXmMk8KjCA==" length="4787118" type="application/octet-stream"/>
     </item>
   </channel>
 </rss>

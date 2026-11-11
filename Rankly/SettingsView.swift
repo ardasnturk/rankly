@@ -14,14 +14,14 @@ struct SettingsView: View {
                     RanklyMark(size: 44)
                     VStack(alignment: .leading, spacing: 2) {
                         Wordmark(font: .title2.weight(.heavy))
-                        Text("Sürüm \(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "?")")
+                        Text("Version \(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "?")")
                             .font(.caption).foregroundStyle(.secondary)
                     }
                 }
             }
-            Section("Genel") {
-                Toggle("Menü çubuğunda göster", isOn: $showMenuBarExtra)
-                Toggle("Girişte başlat", isOn: $launchAtLogin)
+            Section("General") {
+                Toggle("Show in menu bar", isOn: $showMenuBarExtra)
+                Toggle("Launch at login", isOn: $launchAtLogin)
                     .onChange(of: launchAtLogin) { _, on in
                         do {
                             if on { try SMAppService.mainApp.register() } else { try SMAppService.mainApp.unregister() }
@@ -32,30 +32,30 @@ struct SettingsView: View {
                         }
                     }
                 if let loginError { Text(loginError).font(.caption).foregroundStyle(.red) }
-                Text("Menü çubuğu açıkken ana pencereyi kapatsan da Rankly günlük sıralamaları arka planda günceller.")
+                Text("With the menu bar item on, Rankly keeps updating daily ranks in the background even after you close the main window.")
                     .font(.caption).foregroundStyle(.secondary)
             }
-            Section("Güncellemeler") {
-                Toggle("Güncellemeleri otomatik denetle", isOn: Binding(
+            Section("Updates") {
+                Toggle("Automatically check for updates", isOn: Binding(
                     get: { updater.automaticallyChecks }, set: { updater.automaticallyChecks = $0 }))
-                Toggle("Güncellemeleri otomatik indir ve kur", isOn: Binding(
+                Toggle("Automatically download and install updates", isOn: Binding(
                     get: { updater.automaticallyDownloads }, set: { updater.automaticallyDownloads = $0 }))
                     .disabled(!updater.automaticallyChecks)
                 HStack {
-                    Text(updater.lastCheck.map { "Son denetim: \($0.formatted(.relative(presentation: .named)))" } ?? "Henüz denetlenmedi")
+                    Text(updater.lastCheck.map { String(localized: "Last checked: \($0.formatted(.relative(presentation: .named)))") } ?? String(localized: "Not checked yet"))
                         .font(.caption).foregroundStyle(.secondary)
                     Spacer()
-                    Button("Şimdi Denetle") { updater.checkForUpdates() }
+                    Button("Check Now") { updater.checkForUpdates() }
                         .disabled(!updater.canCheckForUpdates)
                 }
             }
             Section {
                 HStack {
-                    Link("Web sitesi", destination: URL(string: "https://rankly.ardasnturk.com")!)
+                    Link("Website", destination: URL(string: "https://rankly.ardasnturk.com")!)
                     Text("·").foregroundStyle(.secondary)
-                    Link("Kullanım kılavuzu", destination: URL(string: "https://rankly.ardasnturk.com/guide.html")!)
+                    Link("User guide", destination: URL(string: "https://rankly.ardasnturk.com/guide.html")!)
                     Text("·").foregroundStyle(.secondary)
-                    Link("Gizlilik", destination: URL(string: "https://rankly.ardasnturk.com/privacy.html")!)
+                    Link("Privacy", destination: URL(string: "https://rankly.ardasnturk.com/privacy.html")!)
                     Text("·").foregroundStyle(.secondary)
                     Link("GitHub", destination: URL(string: "https://github.com/ardasnturk/rankly")!)
                 }

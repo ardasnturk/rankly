@@ -30,11 +30,11 @@ enum AppStoreError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .blocked(let until):
-            return "Apple, App Store aramasını bu ağ için geçici olarak engelledi (403). \(until.formatted(date: .omitted, time: .shortened)) sonrasında tekrar dene."
-        case .badResponse(403): return "App Store erişimi reddetti (403)"
-        case .badResponse(429): return "App Store istek sınırı (429). Biraz sonra tekrar dene."
-        case .badResponse(let code): return "App Store HTTP \(code)"
-        case .decoding: return "App Store yanıtı çözülemedi"
+            return String(localized: "Apple temporarily blocked App Store search for this network (403). Try again after \(until.formatted(date: .omitted, time: .shortened)).")
+        case .badResponse(403): return String(localized: "The App Store denied access (403)")
+        case .badResponse(429): return String(localized: "App Store rate limit (429). Try again in a moment.")
+        case .badResponse(let code): return String(localized: "App Store HTTP \(code)")
+        case .decoding: return String(localized: "Couldn't read the App Store response")
         }
     }
 }

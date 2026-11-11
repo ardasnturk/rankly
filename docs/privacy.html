@@ -22,7 +22,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="assets/style.css">
-<script src="assets/i18n.js" defer></script>
 <script src="assets/main.js" defer></script>
 </head>
 <body>
@@ -39,10 +38,7 @@
       <li><a href="privacy.html" aria-current="page" data-i18n="nav.privacy">Privacy</a></li>
     </ul>
     <div class="nav-actions">
-      <div class="lang-toggle" role="group" aria-label="Language" data-i18n-attr="aria-label:nav.lang">
-        <button type="button" data-lang="en" aria-pressed="true" lang="en">EN</button>
-        <button type="button" data-lang="tr" aria-pressed="false" lang="tr">TR</button>
-      </div>
+      <select class="lang-select" aria-label="Language" data-i18n-attr="aria-label:nav.lang"></select>
       <a class="btn btn-primary btn-sm nav-gh" href="https://github.com/ardasnturk/rankly/releases/latest/download/Rankly.dmg"><span data-i18n="cta.downloadShort">Download</span></a>
       <button class="menu-btn" type="button" aria-controls="nav-links" aria-expanded="false" aria-label="Menu" data-i18n-attr="aria-label:nav.menu">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
@@ -113,7 +109,7 @@
 
       <section id="website">
         <h2 data-i18n="p.s5">This website</h2>
-        <p data-i18n="p.web.1">rankly.ardasnturk.com is a static site hosted on GitHub Pages. It uses <strong>no analytics and no cookies</strong>. Your language choice (EN/TR) is remembered in your browser's local storage and never sent anywhere.</p>
+        <p data-i18n="p.web.1">rankly.ardasnturk.com is a static site hosted on GitHub Pages. It uses <strong>no analytics and no cookies</strong>. Your language choice is remembered in your browser's local storage and never sent anywhere.</p>
         <p data-i18n="p.web.2">GitHub, as the host, processes server logs such as your IP address to deliver the pages. The site loads fonts from Google Fonts, so Google may receive your IP address when you visit; see <a href="https://policies.google.com/privacy">Google's privacy policy</a>.</p>
       </section>
 

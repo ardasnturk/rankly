@@ -118,7 +118,7 @@ final class AnalysisCenter: ObservableObject {
                 for (attempt, wait) in [90, 180, 300].enumerated() where !ok && !Task.isCancelled {
                     for left in stride(from: wait, to: 0, by: -5) {
                         self?.running[Self.key(appId, country)] = RunState(
-                            phase: "Apple istek sınırı, \(left) sn sonra tekrar denenecek (\(attempt + 1)/3)", fraction: 0)
+                            phase: String(localized: "Apple rate limit, retrying in \(left) s (\(attempt + 1)/3)"), fraction: 0)
                         try? await Task.sleep(nanoseconds: 5_000_000_000)
                         if Task.isCancelled { break }
                     }
@@ -128,7 +128,7 @@ final class AnalysisCenter: ObservableObject {
                 }
                 if !ok {
                     self?.batches[appId]?.failed.append(country)
-                    self?.batches[appId]?.reasons[country] = self?.running[Self.key(appId, country)]?.error ?? "Bilinmeyen hata"
+                    self?.batches[appId]?.reasons[country] = self?.running[Self.key(appId, country)]?.error ?? String(localized: "Unknown error")
                     self?.running[Self.key(appId, country)] = nil
                 }
             }
@@ -173,7 +173,7 @@ final class AnalysisCenter: ObservableObject {
     @discardableResult
     private func runOne(appId: String, country: String, pinned: [String], analyzer: KeywordAnalyzer) async -> Bool {
         let k = Self.key(appId, country)
-        running[k] = RunState(phase: "Başlıyor", fraction: 0)
+        running[k] = RunState(phase: String(localized: "Starting"), fraction: 0)
         do {
             let result = try await analyzer.run(appId: appId, country: country, pinnedCompetitorIds: pinned) { [weak self] phase, f in
                 await MainActor.run { self?.running[k] = RunState(phase: phase, fraction: f) }

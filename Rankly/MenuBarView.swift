@@ -23,8 +23,8 @@ struct MenuBarView: View {
             } else {
                 VStack(spacing: 8) {
                     Image(systemName: "sparkle.magnifyingglass").font(.largeTitle).foregroundStyle(.tint)
-                    Text("Henüz uygulama eklenmedi").font(.headline)
-                    Button("Rankly'yi Aç") { open(nil) }.buttonStyle(.borderedProminent)
+                    Text("No apps added yet").font(.headline)
+                    Button("Open Rankly") { open(nil) }.buttonStyle(.borderedProminent)
                 }
                 .padding(24)
             }
@@ -47,13 +47,13 @@ struct MenuBarView: View {
                 Text("\(refresher.progress.done)/\(refresher.progress.total)")
                     .font(.caption.monospacedDigit()).foregroundStyle(.secondary)
             } else {
-                Text(refresher.lastRun.map { $0.formatted(.relative(presentation: .named)) } ?? "güncellenmedi")
+                Text(refresher.lastRun.map { $0.formatted(.relative(presentation: .named)) } ?? String(localized: "not updated"))
                     .font(.caption).foregroundStyle(.secondary)
                 Button { Task { await refresher.refreshAll(context: context) } } label: {
                     Image(systemName: "arrow.clockwise")
                 }
                 .buttonStyle(.borderless)
-                .help("Tümünü yenile")
+                .help("Refresh all")
             }
         }
         .padding(.horizontal, 12).padding(.vertical, 10)
@@ -75,7 +75,7 @@ struct MenuBarView: View {
                 VStack(alignment: .leading, spacing: 0) {
                     Text(app.name).font(.callout.weight(.semibold)).lineLimit(1)
                     let sf = Storefronts.byCode(country)
-                    Text("\(sf.flag) \(sf.name) · \(rows.count) kelime").font(.caption).foregroundStyle(.secondary)
+                    Text("\(sf.flag) \(sf.name) · \(rows.count) keywords").font(.caption).foregroundStyle(.secondary)
                 }
                 Spacer()
                 if mine.count > 1 {
@@ -90,15 +90,15 @@ struct MenuBarView: View {
             HStack(spacing: 0) {
                 MiniStat(title: "Top 10", value: ranked.filter { $0 <= 10 }.count)
                 MiniStat(title: "Top 50", value: ranked.filter { $0 <= 50 }.count)
-                MiniStat(title: "Yükselen", value: rows.filter { ($0.change ?? 0) > 0 }.count, color: .green)
-                MiniStat(title: "Düşen", value: rows.filter { ($0.change ?? 0) < 0 }.count, color: .red)
+                MiniStat(title: "Rising", value: rows.filter { ($0.change ?? 0) > 0 }.count, color: .green)
+                MiniStat(title: "Falling", value: rows.filter { ($0.change ?? 0) < 0 }.count, color: .red)
             }
 
             if !movers.isEmpty {
-                Text("En çok hareket edenler").font(.caption.weight(.semibold)).foregroundStyle(.secondary)
+                Text("Top movers").font(.caption.weight(.semibold)).foregroundStyle(.secondary)
                 ForEach(movers.prefix(4)) { kw in row(kw) }
             }
-            Text("Kelimeler").font(.caption.weight(.semibold)).foregroundStyle(.secondary)
+            Text("Keywords").font(.caption.weight(.semibold)).foregroundStyle(.secondary)
             ScrollView {
                 VStack(spacing: 2) {
                     ForEach(rows.prefix(25)) { kw in row(kw) }
@@ -124,14 +124,14 @@ struct MenuBarView: View {
 
     private var footer: some View {
         HStack {
-            Button("Rankly'yi Aç") { open(app?.appId) }
+            Button("Open Rankly") { open(app?.appId) }
             Spacer()
             Button { updater.checkForUpdates() } label: { Image(systemName: "arrow.down.circle") }
-                .help("Güncellemeleri denetle").disabled(!updater.canCheckForUpdates)
+                .help("Check for updates").disabled(!updater.canCheckForUpdates)
             Button { NSApp.activate(ignoringOtherApps: true); openSettings() } label: { Image(systemName: "gearshape") }
-                .help("Ayarlar")
+                .help("Settings")
             Button { NSApp.terminate(nil) } label: { Image(systemName: "power") }
-                .help("Rankly'den çık")
+                .help("Quit Rankly")
         }
         .buttonStyle(.borderless)
         .padding(.horizontal, 12).padding(.vertical, 8)
@@ -149,7 +149,7 @@ struct MenuBarView: View {
 }
 
 private struct MiniStat: View {
-    let title: String
+    let title: LocalizedStringKey
     let value: Int
     var color: Color = .primary
     var body: some View {

@@ -13,31 +13,31 @@ struct AddAppSheet: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("Uygulama Ekle").font(.title2.bold())
+            Text("Add App").font(.title2.bold())
             HStack {
-                TextField("Uygulama adı, App Store ID veya linki", text: $query)
+                TextField("App name, App Store ID or link", text: $query)
                     .textFieldStyle(.roundedBorder)
                     .onSubmit(search)
                 CountryPicker(country: $country).frame(width: 170)
-                Button("Ara", action: search).keyboardShortcut(.defaultAction)
+                Button("Search", action: search).keyboardShortcut(.defaultAction)
             }
-            Toggle("Rakip olarak ekle", isOn: $asCompetitor)
+            Toggle("Add as competitor", isOn: $asCompetitor)
             if let error { Text(error).foregroundStyle(.red).font(.caption) }
             List(results) { app in
                 HStack(spacing: 10) {
                     AppIcon(url: app.iconURL, size: 36)
                     VStack(alignment: .leading) {
                         Text(app.name).bold()
-                        Text("\(app.developer) · \(app.genre ?? "") · \(app.ratingCount) puan")
+                        Text("\(app.developer) · \(app.genre ?? "") · \(app.ratingCount) ratings")
                             .font(.caption).foregroundStyle(.secondary)
                     }
                     Spacer()
-                    Button("Ekle") { onAdd(app, asCompetitor); dismiss() }
+                    Button("Add") { onAdd(app, asCompetitor); dismiss() }
                 }
                 .padding(.vertical, 2)
             }
             .overlay { if loading { ProgressView() } }
-            HStack { Spacer(); Button("Kapat") { dismiss() }.keyboardShortcut(.cancelAction) }
+            HStack { Spacer(); Button("Close") { dismiss() }.keyboardShortcut(.cancelAction) }
         }
         .padding(20)
         .frame(width: 620, height: 480)
@@ -49,7 +49,7 @@ struct AddAppSheet: View {
         Task {
             do { results = try await AppStoreClient.shared.findApps(query: query, country: country) }
             catch { self.error = error.localizedDescription }
-            if results.isEmpty && error == nil { error = "Sonuç bulunamadı" }
+            if results.isEmpty && error == nil { error = "No results found" }
             loading = false
         }
     }

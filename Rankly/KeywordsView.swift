@@ -61,7 +61,7 @@ struct KeywordsView: View {
                     }
                     Button { showInspector = false } label: { Image(systemName: "xmark.circle.fill") }
                         .buttonStyle(.borderless).foregroundStyle(.secondary).padding(10)
-                        .help("Paneli kapat")
+                        .help("Close panel")
                 }
                 .frame(width: 340)
                 .frame(maxHeight: .infinity, alignment: .top)
@@ -80,14 +80,14 @@ struct KeywordsView: View {
                 CountryPicker(country: $country).frame(width: 180)
                 Button {
                     selection.removeAll(); showSuggestions.toggle(); showInspector = showSuggestions
-                } label: { Label("Kelime Önerileri", systemImage: "lightbulb") }
+                } label: { Label("Keyword Suggestions", systemImage: "lightbulb") }
                 Button {
                     Task { await refresher.refresh(keywords: app.keywords.filter { $0.country == country }, context: context) }
-                } label: { Label("Yenile", systemImage: "arrow.clockwise") }
+                } label: { Label("Refresh", systemImage: "arrow.clockwise") }
                 .disabled(refresher.isRefreshing)
             }
         }
-        .searchable(text: $filter, placement: .toolbar, prompt: "Kelimelerde ara")
+        .searchable(text: $filter, placement: .toolbar, prompt: "Search keywords")
     }
 
     private var header: some View {
@@ -97,13 +97,13 @@ struct KeywordsView: View {
             VStack(alignment: .leading, spacing: 2) {
                 Text(app.name).font(.title2.bold()).lineLimit(1)
                 let sf = Storefronts.byCode(country)
-                Text("\(sf.flag) \(sf.name) · \(rows.count) / \(app.keywords.count) kelime · \(app.developer)")
+                Text("\(sf.flag) \(sf.name) · \(rows.count) / \(app.keywords.count) keywords · \(app.developer)")
                     .font(.callout).foregroundStyle(.secondary).lineLimit(1)
             }
             Spacer()
             Picker("", selection: $mode) {
-                Text("Kelimeler").tag("keywords")
-                Text("Analiz").tag("analysis")
+                Text("Keywords").tag("keywords")
+                Text("Analysis").tag("analysis")
             }
             .pickerStyle(.segmented)
             .labelsHidden()
@@ -120,18 +120,18 @@ struct KeywordsView: View {
         return HStack(spacing: 18) {
             Stat(title: "Top 10", value: "\(ranked.filter { $0 <= 10 }.count)")
             Stat(title: "Top 50", value: "\(ranked.filter { $0 <= 50 }.count)")
-            Stat(title: "Yükselen", value: "\(rows.filter { ($0.change ?? 0) > 0 }.count)", color: .green)
-            Stat(title: "Düşen", value: "\(rows.filter { ($0.change ?? 0) < 0 }.count)", color: .red)
+            Stat(title: "Rising", value: "\(rows.filter { ($0.change ?? 0) > 0 }.count)", color: .green)
+            Stat(title: "Falling", value: "\(rows.filter { ($0.change ?? 0) < 0 }.count)", color: .red)
         }
     }
 
     private var addBar: some View {
         HStack {
             Image(systemName: "plus.magnifyingglass").foregroundStyle(.secondary)
-            TextField("Kelime ekle (virgülle birden fazla)", text: $newTerms)
+            TextField("Add keywords (comma-separated)", text: $newTerms)
                 .textFieldStyle(.plain)
                 .onSubmit(submitTerms)
-            Button("Ekle", action: submitTerms)
+            Button("Add", action: submitTerms)
                 .disabled(newTerms.trimmingCharacters(in: .whitespaces).isEmpty)
         }
         .padding(.horizontal, 16).padding(.vertical, 9)
@@ -140,7 +140,7 @@ struct KeywordsView: View {
 
     private var table: some View {
         Table(rows, selection: $selection, sortOrder: $sortOrder) {
-            TableColumn("Kelime", value: \.term) { kw in
+            TableColumn("Keyword", value: \.term) { kw in
                 HStack(spacing: 4) {
                     Text(kw.term)
                     if let err = kw.lastError {
@@ -149,19 +149,19 @@ struct KeywordsView: View {
                 }
             }
             .width(min: 140, ideal: 220)
-            TableColumn("Sıra", value: \.rankSort) { kw in
+            TableColumn("Rank", value: \.rankSort) { kw in
                 if kw.latest == nil { Text("…").foregroundStyle(.secondary) }
                 else if let r = kw.currentRank { Text("#\(r)").monospacedDigit().bold() }
                 else { Text(">\(RankSnapshot.notRanked - 1)").foregroundStyle(.secondary) }
             }
             .width(60)
-            TableColumn("Değişim", value: \.changeSort) { kw in ChangeBadge(change: kw.change) }
+            TableColumn("Change", value: \.changeSort) { kw in ChangeBadge(change: kw.change) }
                 .width(70)
-            TableColumn("Popülerlik", value: \.popSort) { kw in
+            TableColumn("Popularity", value: \.popSort) { kw in
                 PopularityBar(value: kw.popularity)
             }
             .width(110)
-            TableColumn("Zorluk", value: \.diffSort) { kw in
+            TableColumn("Difficulty", value: \.diffSort) { kw in
                 ScoreBar(value: kw.difficulty, tint: difficultyColor(kw.difficulty))
             }
             .width(110)
@@ -169,17 +169,17 @@ struct KeywordsView: View {
                 .width(90)
         }
         .contextMenu(forSelectionType: PersistentIdentifier.self) { ids in
-            Button("Seçilenleri yenile") {
+            Button("Refresh Selected") {
                 let kws = app.keywords.filter { ids.contains($0.id) }
                 Task { await refresher.refresh(keywords: kws, context: context) }
             }
-            Button("Kopyala") {
+            Button("Copy") {
                 let terms = app.keywords.filter { ids.contains($0.id) }.map(\.term).joined(separator: ", ")
                 NSPasteboard.general.clearContents()
                 NSPasteboard.general.setString(terms, forType: .string)
             }
             Divider()
-            Button("Sil", role: .destructive) {
+            Button("Delete", role: .destructive) {
                 for kw in app.keywords where ids.contains(kw.id) { context.delete(kw) }
                 selection.subtract(ids)
                 try? context.save()
@@ -192,8 +192,8 @@ struct KeywordsView: View {
         }
         .overlay {
             if rows.isEmpty && filter.isEmpty {
-                ContentUnavailableView("Bu ülkede kelime yok", systemImage: "text.magnifyingglass",
-                                       description: Text("Yukarıdan kelime ekle ya da 💡 önerilere bak."))
+                ContentUnavailableView("No keywords in this country", systemImage: "text.magnifyingglass",
+                                       description: Text("Add keywords above or check the 💡 suggestions."))
             }
         }
     }
@@ -232,7 +232,7 @@ func difficultyColor(_ v: Int?) -> Color {
 }
 
 struct Stat: View {
-    let title: String, value: String
+    let title: LocalizedStringKey, value: String
     var color: Color = .primary
     var body: some View {
         VStack(spacing: 0) {

@@ -27,10 +27,10 @@ struct CountryBatchSheet: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("Çok Ülkeli Analiz").font(.title2.bold())
+            Text("Multi-country Analysis").font(.title2.bold())
             if let languages {
                 HStack(spacing: 6) {
-                    Text("Uygulamanın dilleri:").foregroundStyle(.secondary)
+                    Text("App languages:").foregroundStyle(.secondary)
                     ForEach(languages, id: \.self) { l in
                         Text(Locale.current.localizedString(forLanguageCode: l.lowercased()) ?? l)
                             .font(.caption).padding(.horizontal, 6).padding(.vertical, 2)
@@ -40,7 +40,7 @@ struct CountryBatchSheet: View {
             } else if let error {
                 Text(error).foregroundStyle(.red)
             } else {
-                ProgressView("Uygulamanın dilleri alınıyor…").controlSize(.small)
+                ProgressView("Fetching the app's languages…").controlSize(.small)
             }
 
             List {
@@ -48,28 +48,28 @@ struct CountryBatchSheet: View {
                     ForEach(matching) { row($0) }
                 } header: {
                     HStack {
-                        Text("Önerilen: uygulamanın dilinde arama yapılan mağazalar (\(matching.count))")
+                        Text("Recommended: stores that search in the app's languages (\(matching.count))")
                         Spacer()
-                        Button("Hepsi") { selected.formUnion(matching.map(\.code)) }.buttonStyle(.link)
-                        Button("Hiçbiri") { selected.subtract(matching.map(\.code)) }.buttonStyle(.link)
+                        Button("All") { selected.formUnion(matching.map(\.code)) }.buttonStyle(.link)
+                        Button("None") { selected.subtract(matching.map(\.code)) }.buttonStyle(.link)
                     }
                 }
                 Section {
                     ForEach(others) { row($0) }
                 } header: {
-                    Text("Diğer: bu dillerde yerelleştirme yok; uygulama varsayılan dilinde görünür, sıralama zayıf olur")
+                    Text("Other: no localization in these languages; the app appears in its default language and ranks poorly")
                 }
             }
             .listStyle(.inset)
 
-            Toggle("Son 24 saatte analiz edilen ülkeleri atla", isOn: $skipRecent)
+            Toggle("Skip countries analyzed in the last 24 hours", isOn: $skipRecent)
             HStack {
                 // ~90 searches per country in quick mode + autocomplete/lookup calls.
-                Text("\(toRun.count) ülke · tahmini ~\(max(1, Int((Double(toRun.count) * (90 * spacing + 40) / 60).rounded()))) dk (sırayla, arka planda; Apple engellememesi için yavaş)")
+                Text("\(toRun.count) countries · about \(max(1, Int((Double(toRun.count) * (90 * spacing + 40) / 60).rounded()))) min (one by one in the background; slow so Apple doesn't block it)")
                     .foregroundStyle(.secondary)
                 Spacer()
-                Button("Vazgeç") { dismiss() }.keyboardShortcut(.cancelAction)
-                Button("Analizi Başlat") { onStart(toRun); dismiss() }
+                Button("Cancel") { dismiss() }.keyboardShortcut(.cancelAction)
+                Button("Start Analysis") { onStart(toRun); dismiss() }
                     .keyboardShortcut(.defaultAction)
                     .disabled(toRun.isEmpty)
             }
@@ -98,7 +98,7 @@ struct CountryBatchSheet: View {
                 Text(sf.languages.joined(separator: ", ")).font(.caption).foregroundStyle(.secondary)
                 Spacer()
                 if let r = existing.first(where: { $0.country == sf.code }) {
-                    Text("analiz: \(r.createdAt.formatted(.relative(presentation: .named)))")
+                    Text("analyzed \(r.createdAt.formatted(.relative(presentation: .named)))")
                         .font(.caption).foregroundStyle(.secondary)
                 }
             }
@@ -136,31 +136,31 @@ struct CountriesOverview: View {
 
     var body: some View {
         if results.isEmpty {
-            ContentUnavailableView("Henüz ülke analizi yok", systemImage: "globe",
-                                   description: Text("“Çok ülkeli analiz…” ile uygulamanın dillerine uygun mağazaları tek seferde analiz et."))
+            ContentUnavailableView("No country analyses yet", systemImage: "globe",
+                                   description: Text("Use “Multi-country Analysis…” to analyze every store that matches your app's languages in one go."))
                 .frame(maxHeight: .infinity)
         } else {
             ScrollView {
                 VStack(alignment: .leading, spacing: 22) {
-                    SectionBox(title: "Ülkeler", subtitle: "Bir satıra tıklayınca o ülkenin ayrıntılı analizi açılır.") {
-                        RowHeader(["Ülke", "Sıralandığın", "Top 10", "Fırsat", "En iyi fırsatlar", "Analiz"],
-                                  widths: [180, 80, 60, 60, nil, 110])
+                    SectionBox(title: "Countries", subtitle: "Click a row to open that country's detailed analysis.") {
+                        RowHeader(["Country", "Ranked", "Top 10", "Opportunities", "Top opportunities", "Analysis"],
+                                  widths: [180, 100, 70, 100, nil, 130])
                         ForEach(results, id: \.country) { r in
                             let sf = Storefronts.byCode(r.country)
                             Button { onOpen(r.country) } label: {
                                 HStack(spacing: 8) {
                                     Text("\(sf.flag) \(sf.name)").lineLimit(1).frame(width: 180, alignment: .leading)
-                                    Text("\(r.myKeywords.count)").monospacedDigit().frame(width: 80, alignment: .leading)
+                                    Text("\(r.myKeywords.count)").monospacedDigit().frame(width: 100, alignment: .leading)
                                     Text("\(r.myKeywords.filter { ($0.rank ?? 999) <= 10 }.count)").monospacedDigit()
-                                        .frame(width: 60, alignment: .leading)
+                                        .frame(width: 70, alignment: .leading)
                                     Text("\(r.opportunities.count)").monospacedDigit().foregroundStyle(.green)
-                                        .frame(width: 60, alignment: .leading)
+                                        .frame(width: 100, alignment: .leading)
                                     Text(r.opportunities.prefix(3).map(\.term).joined(separator: ", "))
                                         .lineLimit(1).foregroundStyle(.secondary)
                                         .frame(maxWidth: .infinity, alignment: .leading)
                                     Text(r.createdAt.formatted(.relative(presentation: .named)))
                                         .font(.caption).foregroundStyle(.secondary)
-                                        .frame(width: 110, alignment: .trailing)
+                                        .frame(width: 130, alignment: .trailing)
                                 }
                                 .contentShape(Rectangle())
                             }
@@ -170,9 +170,9 @@ struct CountriesOverview: View {
                         }
                     }
 
-                    SectionBox(title: "Ülkeler arası en iyi fırsatlar",
-                               subtitle: "Birden fazla mağazada öne çıkan fırsat kelimeler üstte.") {
-                        RowHeader(["Kelime", "En iyi puan", "Popülerlik", "Ülkeler"], widths: [nil, 80, 90, 260])
+                    SectionBox(title: "Best opportunities across countries",
+                               subtitle: "Opportunity keywords that stand out in several stores come first.") {
+                        RowHeader(["Keyword", "Best score", "Popularity", "Countries"], widths: [nil, 80, 90, 260])
                         ForEach(crossOpps.prefix(25)) { o in
                             HStack(spacing: 8) {
                                 Text(o.term).lineLimit(1).frame(maxWidth: .infinity, alignment: .leading)

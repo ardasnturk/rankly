@@ -22,7 +22,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="assets/style.css">
-<script src="assets/i18n.js" defer></script>
 <script src="assets/main.js" defer></script>
 </head>
 <body>
@@ -39,10 +38,7 @@
       <li><a href="privacy.html" data-i18n="nav.privacy">Privacy</a></li>
     </ul>
     <div class="nav-actions">
-      <div class="lang-toggle" role="group" aria-label="Language" data-i18n-attr="aria-label:nav.lang">
-        <button type="button" data-lang="en" aria-pressed="true" lang="en">EN</button>
-        <button type="button" data-lang="tr" aria-pressed="false" lang="tr">TR</button>
-      </div>
+      <select class="lang-select" aria-label="Language" data-i18n-attr="aria-label:nav.lang"></select>
       <a class="btn btn-primary btn-sm nav-gh" href="https://github.com/ardasnturk/rankly/releases/latest/download/Rankly.dmg"><span data-i18n="cta.downloadShort">Download</span></a>
       <button class="menu-btn" type="button" aria-controls="nav-links" aria-expanded="false" aria-label="Menu" data-i18n-attr="aria-label:nav.menu">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
@@ -144,7 +140,7 @@
         <h2><span class="h-anchor"><span class="num">7</span><span data-i18n="g.s7">Keyword detail panel</span></span></h2>
         <p data-i18n="g.detail.1">Select a keyword to open its detail panel:</p>
         <ul>
-          <li data-i18n="g.detail.2"><strong>Rank history</strong> — a chart of the daily ranks (needs at least two days of data).</li>
+          <li data-i18n="g.detail.2"><strong>Rank History</strong> — a chart of the daily ranks (needs at least two days of data).</li>
           <li data-i18n="g.detail.3"><strong>Apps ranking for this keyword</strong> — the top 30 apps with their rating and number of ratings.</li>
           <li data-i18n="g.detail.4"><strong>Track</strong> — adds that app as a competitor in one click so you can follow its ranks too. Apps you already follow show <em>Tracking</em>.</li>
         </ul>
@@ -157,7 +153,7 @@
 
       <section id="analysis">
         <h2><span class="h-anchor"><span class="num">9</span><span data-i18n="g.s9">Analysis tab</span></span></h2>
-        <p data-i18n="g.an.1">Switch to the <strong>Analysis</strong> tab and click <strong>Start Analysis</strong>. Rankly extracts candidate keywords from the app's name, subtitle and description, expands them with autocomplete and searches each in the App Store. It takes about <strong>1–2 minutes</strong>; results are saved per country and you can re-run it anytime with <strong>Re-analyse</strong>.</p>
+        <p data-i18n="g.an.1">Switch to the <strong>Analysis</strong> tab and click <strong>Start Analysis</strong>. Rankly extracts candidate keywords from the app's name, subtitle and description, expands them with autocomplete and searches each in the App Store. It takes about <strong>1–2 minutes</strong>; results are saved per country and you can re-run it anytime with <strong>Re-analyze</strong>.</p>
         <h3 data-i18n="g.an.h1">Keywords you rank for</h3>
         <p data-i18n="g.an.p1">Every candidate term where the app appears in the results, with its rank, popularity and difficulty.</p>
         <h3 data-i18n="g.an.h2">Name &amp; subtitle words you don't rank for</h3>
@@ -173,13 +169,13 @@
 
       <section id="multi-country">
         <h2><span class="h-anchor"><span class="num">10</span><span data-i18n="g.s10">Multi-country analysis</span></span></h2>
-        <p data-i18n="g.mc.1">In the Analysis tab, click <strong>Multi-country analysis…</strong>.</p>
+        <p data-i18n="g.mc.1">In the Analysis tab, click <strong>Multi-country Analysis…</strong>.</p>
         <ul>
           <li data-i18n="g.mc.2"><strong>Language matching</strong> — Rankly reads the languages the app is localized in from the App Store and pre-selects the storefronts that search in those languages. Other countries are listed separately: the app shows in its default language there, so ranking is usually weak.</li>
           <li data-i18n="g.mc.3"><strong>Skip countries analysed in the last 24 hours</strong> — keep this on to avoid repeating fresh work.</li>
           <li data-i18n="g.mc.4">Click <strong>Start Analysis</strong>. Countries are analysed one by one in the background, each with its localized name and description. The sheet shows an estimated duration; it's slow on purpose so Apple doesn't block you.</li>
           <li data-i18n="g.mc.5">When done, switch the scope to <strong>All countries</strong> for a per-country overview (keywords you rank for, how many in the top 10, opportunities) and the best opportunities across all countries.</li>
-          <li data-i18n="g.mc.6"><strong>Resume after a block</strong> — if Apple temporarily blocks search, the run pauses and shows how many countries are finished. After the indicated time, click <strong>Continue with remaining</strong>. Failed countries can be retried with <strong>Retry failed</strong>.</li>
+          <li data-i18n="g.mc.6"><strong>Resume after a block</strong> — if Apple temporarily blocks search, the run pauses and shows how many countries are finished. After the indicated time, click <strong>Continue with Remaining</strong>. Failed countries can be retried with <strong>Retry Failed</strong>.</li>
         </ul>
       </section>
 
