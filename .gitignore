@@ -1,0 +1,16 @@
+# Build output
+build/
+dist/
+DerivedData/
+*.xcodeproj/
+*.xcworkspace/
+xcuserdata/
+
+# macOS
+.DS_Store
+
+# Local secrets (Sparkle private key, notary credentials) — never commit
+*.p8
+*.pem
+sparkle_private_key*
+.env
