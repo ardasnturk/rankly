@@ -6,6 +6,15 @@
     <description>Rankly updates</description>
     <language>en</language>
     <item>
+      <title>Rankly 0.3.0</title>
+      <pubDate>Sat, 14 Nov 2026 06:27:40 GMT</pubDate>
+      <sparkle:version>3</sparkle:version>
+      <sparkle:shortVersionString>0.3.0</sparkle:shortVersionString>
+      <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+      <sparkle:releaseNotesLink>https://github.com/ardasnturk/rankly/releases/tag/v0.3.0</sparkle:releaseNotesLink>
+      <enclosure url="https://github.com/ardasnturk/rankly/releases/download/v0.3.0/Rankly.dmg" sparkle:edSignature="mp0BEf6FdRKFW3PR8U6DdntE6udJ4x90Z8j+WFYhZ72Hq007ymDYr9ZJ//kdWuv7Tqhe6lCFQGBjxEE3ii/sCQ==" length="5460068" type="application/octet-stream"/>
+    </item>
+    <item>
       <title>Rankly 0.2.0</title>
       <pubDate>Wed, 11 Nov 2026 21:03:48 GMT</pubDate>
       <sparkle:version>2</sparkle:version>
