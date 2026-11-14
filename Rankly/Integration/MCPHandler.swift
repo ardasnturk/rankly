@@ -30,6 +30,11 @@ final class MCPHandler {
              schema: Self.obj(Self.appProps.merging(["country": ["type": "string", "description": "Two-letter App Store country, e.g. us"]]) { a, _ in a })) { a, base in
                  Self.req(base, "GET", "/v1/keywords", query: Self.strings(a, ["appId", "bundleId", "country"]))
              },
+        Tool(name: "get_chart_ranks",
+             description: "App Store top-chart positions of an app per country (top 200 iPhone charts, checked daily): Top Free or Top Paid across all apps and in its category, plus Top Grossing, with daily history. Missing rank = not in the top 200.",
+             schema: Self.obj(Self.appProps.merging(["country": ["type": "string", "description": "Optional two-letter country"]]) { a, _ in a })) { a, base in
+                 Self.req(base, "GET", "/v1/charts", query: Self.strings(a, ["appId", "bundleId", "country"]))
+             },
         Tool(name: "get_analysis",
              description: "Latest ASO analysis of an app in one country: keywords it ranks for, name/subtitle terms it doesn't rank for, competitors found automatically, opportunity keywords and a suggested 100-character keyword field.",
              schema: Self.obj(Self.appProps.merging(["country": ["type": "string"]]) { a, _ in a }, required: ["country"])) { a, base in

@@ -40,9 +40,18 @@ struct KeywordsView: View {
             VStack(spacing: 0) {
                 header
                 Divider()
-                if mode == "analysis" {
+                switch mode {
+                case "analysis":
                     AnalysisView(app: app, country: $country, onAddKeywords: addTerms, onTrackCompetitor: trackCompetitor)
-                } else {
+                case "countries":
+                    CountryMatrixView(app: app, filter: filter, onOpen: { kw in
+                        country = kw.country
+                        mode = "keywords"
+                        DispatchQueue.main.async { selection = [kw.id] }
+                    }, onTrack: track)
+                case "charts":
+                    ChartsView(app: app)
+                default:
                     addBar
                     table
                 }
@@ -103,11 +112,13 @@ struct KeywordsView: View {
             Spacer()
             Picker("", selection: $mode) {
                 Text("Keywords").tag("keywords")
+                Text("Countries").tag("countries")
+                Text("Charts").tag("charts")
                 Text("Analysis").tag("analysis")
             }
             .pickerStyle(.segmented)
             .labelsHidden()
-            .frame(width: 180)
+            .frame(width: 360)
             Spacer()
             summary
         }
@@ -209,6 +220,15 @@ struct KeywordsView: View {
     private func submitTerms() {
         addTerms(newTerms.split(whereSeparator: { $0 == "," || $0 == "\n" }).map(String.init))
         newTerms = ""
+    }
+
+    /// Starts tracking an existing term in another country (from the country matrix).
+    private func track(_ term: String, in target: String) {
+        guard !app.keywords.contains(where: { $0.country == target && $0.term.lowercased() == term }) else { return }
+        let kw = Keyword(term: term, country: target, app: app)
+        context.insert(kw)
+        try? context.save()
+        Task { await refresher.refresh(keywords: [kw], context: context) }
     }
 
     private func addTerms(_ terms: [String]) {

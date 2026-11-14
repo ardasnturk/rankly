@@ -111,7 +111,10 @@ struct AppRow: View {
         .contextMenu {
             Button(app.isCompetitor ? String(localized: "Move to My Apps") : String(localized: "Move to Competitors")) { app.isCompetitor.toggle() }
             Divider()
-            Button("Delete", role: .destructive) { context.delete(app); try? context.save() }
+            Button("Delete", role: .destructive) {
+                ChartCountries.deleteHistory(appId: app.appId, context: context)
+                context.delete(app); try? context.save()
+            }
         }
     }
 }

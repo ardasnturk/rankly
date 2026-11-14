@@ -60,7 +60,7 @@ struct RanklyApp: App {
 final class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
     let container: ModelContainer = {
         if Demo.isOn { return Demo.container() }
-        do { return try ModelContainer(for: TrackedApp.self, Keyword.self, RankSnapshot.self) }
+        do { return try ModelContainer(for: TrackedApp.self, Keyword.self, RankSnapshot.self, ChartSnapshot.self) }
         catch { fatalError("SwiftData store could not be opened: \(error)") }
     }()
     let refresher = RankRefresher()
@@ -71,6 +71,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         guard !Demo.isOn else { return }   // demo never talks to Apple
+        refresher.extraChartCountries = { [analysis] appId in analysis.allResults(appId: appId).map(\.country) }
         refresher.startSchedule(context: container.mainContext)
         if Self.apiEnabled { api.start() }
     }

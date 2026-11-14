@@ -11,7 +11,7 @@ enum Demo {
 
     static func container() -> ModelContainer {
         let config = ModelConfiguration(isStoredInMemoryOnly: true)
-        let c = try! ModelContainer(for: TrackedApp.self, Keyword.self, RankSnapshot.self, configurations: config)
+        let c = try! ModelContainer(for: TrackedApp.self, Keyword.self, RankSnapshot.self, ChartSnapshot.self, configurations: config)
         seed(c.mainContext)
         return c
     }
@@ -51,6 +51,36 @@ enum Demo {
                 let snap = RankSnapshot(date: day, rank: r == 0 ? nil : r, resultCount: 250)
                 ctx.insert(snap)
                 snap.keyword = kw
+            }
+        }
+        // Same terms in other countries (country matrix) and top-chart history (Charts view).
+        let other: [(String, [(String, Int)])] = [
+            ("gb", [("habit tracker", 4), ("streak tracker", 2), ("habit journal", 3), ("morning routine", 9), ("build habits", 22)]),
+            ("de", [("habit tracker", 12), ("streak tracker", 5), ("daily planner", 41)]),
+            ("tr", [("habit tracker", 1), ("habit journal", 2), ("goal tracker", 6)]),
+        ]
+        for (c, list) in other {
+            for (i, (term, rank)) in list.enumerated() {
+                let kw = Keyword(term: term, country: c, app: app)
+                kw.popularity = 40 + i * 7; kw.difficulty = 30 + i * 9; kw.lastCheckedAt = .now
+                ctx.insert(kw)
+                for d in 0..<7 {
+                    let snap = RankSnapshot(date: cal.date(byAdding: .day, value: d - 6, to: .now)!, rank: rank + (6 - d) / 2, resultCount: 250)
+                    ctx.insert(snap); snap.keyword = kw
+                }
+            }
+        }
+        // country, (overall, category, grossing) on the newest day; older days drift down a little.
+        let charts: [(String, Int?, Int?, Int?)] = [("us", 142, 8, nil), ("gb", 97, 4, 176), ("de", nil, 23, nil), ("tr", 61, 2, 88)]
+        for (c, o, k, g) in charts {
+            for d in 0..<14 {
+                let s = ChartSnapshot(appId: app.appId, country: c, date: cal.date(byAdding: .day, value: d - 13, to: .now)!,
+                                      genreId: "6007", genreName: "Productivity", paid: false)
+                let drift = (13 - d) * 2
+                s.overall = o.map { min(200, $0 + drift * 3) }.flatMap { $0 < 200 ? $0 : nil }
+                s.category = k.map { $0 + drift / 2 }
+                s.grossingOverall = g.map { $0 + drift }.flatMap { $0 < 200 ? $0 : nil }
+                ctx.insert(s)
             }
         }
         try? ctx.save()

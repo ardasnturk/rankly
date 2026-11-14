@@ -33,6 +33,7 @@ Only a SHA-256 hash of the token is stored in Rankly.
 | POST | `/v1/apps` | `{appId? \| bundleId?, competitor?, country?}` | Tracks an app |
 | GET | `/v1/keywords` | `?appId=` (or `bundleId`), `&country=` optional | `{keywords: [{term, country, rank, change, popularity, difficulty, lastCheckedAt, error, history: [{date, rank}]}]}` |
 | POST | `/v1/keywords` | `{appId? \| bundleId?, country, terms: [..]}` | Adds keywords to daily tracking (adds the app if needed) and refreshes them: `{appId, added, existing}` |
+| GET | `/v1/charts` | `?appId=` (or `bundleId`), `&country=` optional | Top-chart positions per country: `{charts: [{country, genreId, genreName, chart: "free" \| "paid", overall, category, grossingOverall, grossingCategory, checkedAt, history}]}` (top 200; a missing rank = not in the list) |
 | POST | `/v1/ranks` | `{appId? \| bundleId?, country, terms: [..≤60], rivals?: [appId]}` | Live App Store search ranks: `{appId, country, source, ranks: {term: {rank, results, rivals?}}}` |
 | GET | `/v1/analysis` | `?appId=&country=` | `{analysis: AnalysisResult \| null, running: {phase, fraction, error}?}` |
 | GET | `/v1/analysis/countries` | `?appId=` | `{countries: [{country, createdAt, ranked, opportunities, competitors}]}` |
@@ -48,7 +49,7 @@ Only a SHA-256 hash of the token is stored in Rankly.
 
 ## MCP
 
-`POST /mcp` speaks the Model Context Protocol (Streamable HTTP, JSON responses). Tools: `list_apps`, `get_keywords`, `get_analysis`, `list_analyses`, `run_analysis`, `analysis_status`, `track_keywords`, `check_ranks`, `add_event`.
+`POST /mcp` speaks the Model Context Protocol (Streamable HTTP, JSON responses). Tools: `list_apps`, `get_keywords`, `get_chart_ranks`, `get_analysis`, `list_analyses`, `run_analysis`, `analysis_status`, `track_keywords`, `check_ranks`, `add_event`.
 
 **Settings → Integrations → Connect Claude Code (MCP)…** creates a token and shows the command, for example:
 

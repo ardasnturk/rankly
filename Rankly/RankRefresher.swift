@@ -7,6 +7,9 @@ final class RankRefresher: ObservableObject {
     @Published var isRefreshing = false
     @Published var progress: (done: Int, total: Int) = (0, 0)
     @Published var lastRun: Date? = UserDefaults.standard.object(forKey: "lastRefresh") as? Date
+    @Published var chartsRefreshing = false
+    /// Extra chart countries per appId (countries with a saved analysis); set by AppDelegate.
+    var extraChartCountries: (String) -> [String] = { _ in [] }
 
     private let client = AppStoreClient.shared
     private var timer: Timer?
@@ -21,12 +24,15 @@ final class RankRefresher: ObservableObject {
     }
 
     func refreshIfStale(context: ModelContext) async {
-        if let lastRun, Calendar.current.isDateInToday(lastRun) { return }
-        await refresh(keywords: (try? context.fetch(FetchDescriptor<Keyword>())) ?? [], context: context)
+        if lastRun.map({ !Calendar.current.isDateInToday($0) }) ?? true {
+            await refresh(keywords: (try? context.fetch(FetchDescriptor<Keyword>())) ?? [], context: context)
+        }
+        await refreshCharts(context: context)   // only countries without a snapshot today
     }
 
     func refreshAll(context: ModelContext) async {
         await refresh(keywords: (try? context.fetch(FetchDescriptor<Keyword>())) ?? [], context: context)
+        await refreshCharts(context: context)
     }
 
     func refresh(keywords: [Keyword], context: ModelContext) async {

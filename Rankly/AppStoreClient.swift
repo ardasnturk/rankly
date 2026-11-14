@@ -14,6 +14,19 @@ struct AppInfo: Identifiable, Hashable, Sendable, Codable {
     var subtitle: String? = nil
     var languages: [String]? = nil
     var bundleId: String? = nil
+    var primaryGenreId: String? = nil
+    var isFree: Bool? = nil   // optional: saved analyses (Codable) predate it
+}
+
+/// One App Store top-chart page (a genre in a storefront): ordered app ids, top 200.
+struct TopCharts: Sendable {
+    var free: [String] = []
+    var paid: [String] = []
+    var grossing: [String] = []
+
+    static func rank(_ id: String, in list: [String]) -> Int? {
+        list.prefix(200).firstIndex(of: id).map { $0 + 1 }
+    }
 }
 
 struct SearchResult: Sendable {
@@ -123,6 +136,45 @@ actor AppStoreClient {
     }
 
     func knownSubtitle(for appId: String) -> String? { subtitles[appId] }
+
+    // MARK: Top charts
+
+    private var chartsCache: [String: (Date, TopCharts)] = [:]
+
+    /// Top Free / Paid / Grossing iPhone charts for a genre ("36" = all apps) in a storefront, top 200 each.
+    /// Uses the same paced, block-aware path as search.
+    func topCharts(genreId: String, country: String) async throws -> TopCharts {
+        let key = "\(country)|\(genreId)"
+        if let (d, c) = chartsCache[key], Date().timeIntervalSince(d) < cacheTTL { return c }
+        var comps = URLComponents(string: "https://itunes.apple.com/WebObjects/MZStore.woa/wa/viewTop")!
+        comps.queryItems = [.init(name: "genreId", value: genreId), .init(name: "popId", value: "27"),
+                            .init(name: "cc", value: country)]
+        var req = URLRequest(url: comps.url!)
+        req.setValue("\(Storefronts.byCode(country).id),29", forHTTPHeaderField: "X-Apple-Store-Front")
+        let data = try await fetch(req)
+        guard let json = try JSONSerialization.jsonObject(with: data) as? [String: Any],
+              let page = json["pageData"] as? [String: Any] else { throw AppStoreError.decoding }
+        // Charts sit in segmentedControl.segments[0].pageData.topCharts (older layout: pageData.topCharts).
+        let segments = (page["segmentedControl"] as? [String: Any])?["segments"] as? [[String: Any]]
+        let inner = (segments?.first?["pageData"] as? [String: Any]) ?? page
+        guard let charts = inner["topCharts"] as? [[String: Any]] else { throw AppStoreError.decoding }
+        var result = TopCharts()
+        for c in charts {
+            let ids = (c["adamIds"] as? [Any] ?? []).compactMap { v -> String? in
+                if let s = v as? String { return s }
+                if let n = v as? Int { return String(n) }
+                return nil
+            }
+            switch c["id"] as? String {
+            case "27": result.free = ids
+            case "30": result.paid = ids
+            case "38": result.grossing = ids
+            default: break
+            }
+        }
+        chartsCache[key] = (Date(), result)
+        return result
+    }
 
     // MARK: Lookup / search apps
 
@@ -259,7 +311,9 @@ actor AppStoreClient {
                            genreIds: r["genreIds"] as? [String] ?? [],
                            description: r["description"] as? String,
                            languages: r["languageCodesISO2A"] as? [String],
-                           bundleId: r["bundleId"] as? String)
+                           bundleId: r["bundleId"] as? String,
+                           primaryGenreId: (r["primaryGenreId"] as? Int).map(String.init),
+                           isFree: ((r["price"] as? Double) ?? 0) == 0)
         }
     }
 }

@@ -84,6 +84,7 @@ final class RanklyAPI {
             case ("GET", "/v1/apps/resolve"): return try await resolve(req)
             case ("POST", "/v1/apps"): return try await trackApp(req)
             case ("GET", "/v1/keywords"): return try keywords(req)
+            case ("GET", "/v1/charts"): return try charts(req)
             case ("POST", "/v1/keywords"): return try await addKeywords(req)
             case ("POST", "/v1/ranks"): return try await ranks(req)
             case ("GET", "/v1/analysis"): return try analysisGet(req)
@@ -221,6 +222,33 @@ final class RanklyAPI {
         if let id = req.query["appId"], let a = apps.first(where: { $0.appId == id }) { return a }
         if let b = req.query["bundleId"], let a = apps.first(where: { $0.bundleId == b }) { return a }
         throw APIError(status: 404, message: "App is not tracked in Rankly (use appId, or resolve the bundleId first)")
+    }
+
+    // MARK: Top charts
+
+    struct ChartDTO: Encodable {
+        let country: String, genreId: String, genreName: String, chart: String
+        let overall: Int?, category: Int?, grossingOverall: Int?, grossingCategory: Int?
+        let checkedAt: Date, history: [Point]
+        struct Point: Encodable { let date: Date; let overall: Int?; let category: Int?; let grossingOverall: Int?; let grossingCategory: Int? }
+    }
+
+    private func charts(_ req: HTTPRequest) throws -> HTTPResponse {
+        let app = try requireAppSync(req)
+        let id = app.appId, country = req.query["country"]
+        let snaps = (try? context.fetch(FetchDescriptor<ChartSnapshot>(predicate: #Predicate { $0.appId == id },
+                                                                        sortBy: [SortDescriptor(\.date)]))) ?? []
+        let rows = Dictionary(grouping: snaps.filter { country == nil || $0.country == country }, by: \.country)
+            .sorted { $0.key < $1.key }
+            .compactMap { c, h -> ChartDTO? in
+                guard let l = h.last else { return nil }
+                return ChartDTO(country: c, genreId: l.genreId, genreName: l.genreName, chart: l.paid ? "paid" : "free",
+                                overall: l.overall, category: l.category, grossingOverall: l.grossingOverall,
+                                grossingCategory: l.grossingCategory, checkedAt: l.date,
+                                history: h.map { .init(date: $0.date, overall: $0.overall, category: $0.category,
+                                                       grossingOverall: $0.grossingOverall, grossingCategory: $0.grossingCategory) })
+            }
+        return .json(["charts": rows])
     }
 
     // MARK: Keywords
